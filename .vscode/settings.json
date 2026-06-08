@@ -1,0 +1,26 @@
+{
+    "explorer.excludeGitIgnore": true,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*": "${capture}.meta"
+    },
+    "files.exclude": {
+        "UIElementsSchema/": true,
+        "Assets/TextMesh Pro/": true,
+        "Assets/Plugins/": true
+    },
+    "files.readonlyInclude": {
+        "**/*.meta": true,
+        "Packages/packages-lock.json": true,
+        "Assets/Plugins/": true,
+        "Assets/TextMesh Pro/": true,
+        "UIElementsSchema/**": true,
+        "FMODProject/**": true
+    },
+    "conventionalCommitBuilder.template": "<type><scope>: <description>",
+    "conventionalCommitBuilder.autoCommit": true,
+    "conventionalCommitBuilder.showCommit": true,
+    "conventionalCommitBuilder.customTypes": [],
+    "conventionalCommitBuilder.scopes": []
+}
