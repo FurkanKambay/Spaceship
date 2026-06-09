@@ -3,7 +3,9 @@
     "rootNamespace": "Spaceship",
     "references": [
         "GUID:ade22e0cbd0966a43aa01ef49b183800",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:d91d5ec20cf4bd541bb898f67497ca6d",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
