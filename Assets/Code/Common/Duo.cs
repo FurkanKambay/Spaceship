@@ -4,7 +4,7 @@ using UnityEngine;
 
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 
-namespace FK.Spaceship
+namespace FK.Common
 {
     public struct Duo : IEquatable<Duo>
     {
