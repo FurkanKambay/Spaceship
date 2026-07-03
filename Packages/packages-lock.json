@@ -270,6 +270,13 @@
         "com.unity.modules.physics": "1.0.0"
       }
     },
+    "com.vertx.attributes": {
+      "version": "1.6.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.vertx.debugging": {
       "version": "3.0.3",
       "depth": 0,
