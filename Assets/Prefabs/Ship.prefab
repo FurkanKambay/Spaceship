@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5608155537165872978
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &6004854799827479174
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,11 +182,15 @@ MonoBehaviour:
   leftThruster: {fileID: 7456228798354704545}
   rightThruster: {fileID: 2714657799407899289}
   thrusterForce: 5
-  thrusterTorque: 180
-  thrusterInput: {x: 0, y: 0}
-  currentForces: {x: 0, y: 0}
-  currentTorques: {x: 0, y: 0}
-  currentTurnAmount: 0
+  thrusterTorque: 300
+  minAngleZ: -45
+  maxAngleZ: 45
+  thrusterInput: {x: 0, y: 0, z: 0}
+  currentThrustForce: {x: 0, y: 0, z: 0}
+  totalThrustForce: 0
+  currentTurnForce: {x: 0, y: 0, z: 0}
+  totalTurnForce: 0
+  currentAngleZ: 0
 --- !u!1 &6186768876511476940
 GameObject:
   m_ObjectHideFlags: 0

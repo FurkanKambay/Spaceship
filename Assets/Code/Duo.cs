@@ -25,18 +25,15 @@ namespace Spaceship
 
         public void Swap() => (Left, Right) = (Right, Left);
 
-        #region Conversion Operators
-
+#region Conversion Operators
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector2(Duo duo) => new(duo.Left, duo.Right);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Duo(Vector2 vector) => new(vector.x, vector.y);
+#endregion
 
-        #endregion
-
-        #region Arithmetic Operators
-
+#region Arithmetic Operators
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Duo operator +(Duo lhs, Duo rhs) => new(lhs.Left + rhs.Left, lhs.Right + rhs.Right);
 
@@ -75,11 +72,9 @@ namespace Spaceship
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Duo operator /(float lhs, Duo rhs) => new(lhs / rhs.Left, lhs / rhs.Right);
+#endregion
 
-        #endregion
-
-        #region Equality Methods
-
+#region Equality Methods
         public override int GetHashCode() => HashCode.Combine(Left, Right);
         public override bool Equals(object obj) => obj is Duo other && Equals(other);
 
@@ -90,7 +85,6 @@ namespace Spaceship
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Duo left, Duo rhs) => !left.Equals(rhs);
-
-        #endregion
+#endregion
     }
 }

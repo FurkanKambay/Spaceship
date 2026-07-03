@@ -18,12 +18,20 @@ namespace Spaceship
         [Header("Config")]
         [SerializeField, Min(0)] private float thrusterForce = 20f;
         [SerializeField, Min(0)] private float thrusterTorque = 20f;
+        [SerializeField, Range(-180, 180)] private float minAngleZ = -45f;
+        [SerializeField, Range(-180, 180)] private float maxAngleZ = 45f;
 
         [Header("Debug")]
-        [SerializeField] private Vector2 thrusterInput;
-        [SerializeField] private Vector2 currentForces;
-        [SerializeField] private Vector2 currentTorques;
-        [SerializeField] private float currentTurnAmount;
+        [SerializeField, Pair("Left", "Right")] private Vector2 thrusterInput;
+
+        [Header("Debug - Thrust")]
+        [SerializeField, Pair("Left", "Right")] private Vector2 currentThrustForce;
+        [SerializeField] private float totalThrustForce;
+
+        [Header("Debug - Turn")]
+        [SerializeField, Pair("Left", "Right")] private Vector2 currentTurnForce;
+        [SerializeField] private float totalTurnForce;
+        [SerializeField] private float currentAngleZ;
 
         private void Awake()
         {
@@ -36,33 +44,31 @@ namespace Spaceship
             if (swapSides)
                 input.Swap();
 
-            Duo force = input * thrusterForce;
-            Duo torque = input * thrusterTorque;
+            Duo thrustForce = input * thrusterForce;
+            Duo turnForce = input * thrusterTorque;
 
-            Vector2 leftDirection = leftThruster.up * force.Left;
-            Vector2 rightDirection = rightThruster.up * force.Right;
+            Vector2 leftDirection = leftThruster.up * thrustForce.Left;
+            Vector2 rightDirection = rightThruster.up * thrustForce.Right;
 
-            (thrusterInput, currentForces, currentTorques) = (input, force, torque);
+            (thrusterInput, currentThrustForce, currentTurnForce) = (input, thrustForce, turnForce);
             D.raw(new Shape.Arrow2D(leftThruster.position, leftDirection));
             D.raw(new Shape.Arrow2D(rightThruster.position, rightDirection));
 
-            Move(force);
-            Turn(torque);
+            Move(thrustForce);
+            Turn(turnForce);
         }
 
         private void Move(Duo thrusts)
         {
-            float totalForce = thrusts.Left + thrusts.Right;
-
-            transform.Translate(0, totalForce * Time.deltaTime, 0, Space.Self);
+            totalThrustForce = thrusts.Left + thrusts.Right;
+            transform.Translate(0, totalThrustForce * Time.deltaTime, 0, Space.Self);
         }
 
         private void Turn(Duo torques)
         {
-            float totalTorque = torques.Right - torques.Left;
-            currentTurnAmount = totalTorque;
-
-            transform.Rotate(0, 0, totalTorque * Time.deltaTime);
+            totalTurnForce = torques.Right - torques.Left;
+            currentAngleZ = Mathf.Clamp(currentAngleZ + (totalTurnForce * Time.deltaTime), minAngleZ, maxAngleZ);
+            transform.localEulerAngles = new Vector3(0, 0, currentAngleZ);
         }
     }
 }
