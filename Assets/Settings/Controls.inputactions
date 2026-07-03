@@ -7,7 +7,7 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Fire Left Thruster",
+                    "name": "Fire Thruster Left",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
                     "expectedControlType": "",
@@ -16,7 +16,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire Right Thruster",
+                    "name": "Fire Thruster Right",
                     "type": "Button",
                     "id": "484e9bfb-00f6-4e6d-b8c6-2bce06a57f41",
                     "expectedControlType": "",
@@ -25,7 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire Left Booster",
+                    "name": "Dash Left",
                     "type": "Button",
                     "id": "966a0bec-e565-46a7-abe0-3684c3b5207b",
                     "expectedControlType": "",
@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire Right Booster",
+                    "name": "Dash Right",
                     "type": "Button",
                     "id": "4a82a789-d7f7-4289-97ea-278140678be0",
                     "expectedControlType": "",
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Left Thruster",
+                    "action": "Fire Thruster Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -166,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Left Thruster",
+                    "action": "Fire Thruster Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -177,7 +177,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Left Booster",
+                    "action": "Dash Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -188,7 +188,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Left Booster",
+                    "action": "Dash Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -199,7 +199,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Right Thruster",
+                    "action": "Fire Thruster Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -210,7 +210,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Right Thruster",
+                    "action": "Fire Thruster Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -221,7 +221,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Right Booster",
+                    "action": "Dash Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -232,7 +232,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Right Booster",
+                    "action": "Dash Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
