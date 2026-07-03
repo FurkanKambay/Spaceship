@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-namespace Spaceship.Editor
+namespace FK.Spaceship.Editor
 {
     [InitializeOnLoad]
     internal class UnityEditorSceneManager

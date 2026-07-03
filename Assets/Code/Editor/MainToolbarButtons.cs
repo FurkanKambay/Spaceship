@@ -6,7 +6,7 @@ using UnityEditor.Toolbars;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Spaceship.Editor
+namespace FK.Spaceship.Editor
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class MainToolbarButtons

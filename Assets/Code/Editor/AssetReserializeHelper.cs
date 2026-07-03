@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Spaceship.Editor
+namespace FK.Spaceship.Editor
 {
     public sealed class AssetReserializeHelper : MonoBehaviour
     {

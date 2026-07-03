@@ -1,6 +1,6 @@
 {
-    "name": "Spaceship.Editor",
-    "rootNamespace": "Spaceship",
+    "name": "FK.Spaceship.Editor",
+    "rootNamespace": "FK.Spaceship",
     "references": [
         "GUID:ade22e0cbd0966a43aa01ef49b183800"
     ],

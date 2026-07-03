@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Vertx.Debugging;
 
-namespace Spaceship
+namespace FK.Spaceship
 {
     public class ShipController : MonoBehaviour
     {
