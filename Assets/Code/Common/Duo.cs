@@ -2,10 +2,11 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-// ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable InconsistentNaming
 
 namespace FK.Common
 {
+    [Serializable]
     public struct Duo : IEquatable<Duo>
     {
         public float Left;
