@@ -40,27 +40,28 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
-            moveInput = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
-            if (invertControls)
-                moveInput.Swap();
-
-            thrust = moveInput * thrusterForce;
-
+            ReadInput();
             Move();
             Turn();
         }
 
         private void LateUpdate()
         {
-            Vector2 leftDirection = leftThruster.up * moveInput.Left;
-            Vector2 rightDirection = rightThruster.up * moveInput.Right;
+            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInput.Left));
+            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInput.Right));
+        }
 
-            D.raw(new Shape.Arrow2D(leftThruster.position, leftDirection));
-            D.raw(new Shape.Arrow2D(rightThruster.position, rightDirection));
+        private void ReadInput()
+        {
+            moveInput = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
+            if (invertControls)
+                moveInput.Swap();
         }
 
         private void Move()
         {
+            thrust = moveInput * thrusterForce;
+
             thrustPower = baseThrust + thrust.Left + thrust.Right;
             transform.Translate(0, thrustPower * Time.deltaTime, 0);
         }
