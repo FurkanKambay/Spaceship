@@ -185,10 +185,10 @@ MonoBehaviour:
   thrusterTorque: 300
   minAngleZ: -45
   maxAngleZ: 45
-  thrusterInput: {x: 0, y: 0, z: 0}
-  currentThrustForce: {x: 0, y: 0, z: 0}
+  thrusterInput: {x: 0, y: 0}
+  currentThrustForce: {x: 0, y: 0}
   totalThrustForce: 0
-  currentTurnForce: {x: 0, y: 0, z: 0}
+  currentTurnForce: {x: 0, y: 0}
   totalTurnForce: 0
   currentAngleZ: 0
 --- !u!1 &6186768876511476940
