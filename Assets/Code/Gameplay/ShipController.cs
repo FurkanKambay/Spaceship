@@ -1,6 +1,8 @@
 using FK.Common;
+using FK.Common.Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vertx.Attributes;
 using Vertx.Debugging;
 
 namespace FK.Spaceship.Gameplay
@@ -10,7 +12,7 @@ namespace FK.Spaceship.Gameplay
         [Header("Input")]
         [SerializeField] private InputActionReference leftInput;
         [SerializeField] private InputActionReference rightInput;
-        [SerializeField] private bool swapSides = true;
+        [SerializeField] private bool invertControls = true;
 
         [Header("Prefab References")]
         [SerializeField] private Transform leftThruster;
@@ -22,17 +24,14 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, Range(-180, 180)] private float minAngleZ = -45f;
         [SerializeField, Range(-180, 180)] private float maxAngleZ = 45f;
 
-        [Header("Debug")]
-        [SerializeField, Pair("Left", "Right")] private Vector2 thrusterInput;
+        [Header("Debug - Input")]
+        [SerializeField, ReadOnlyField] private Duo moveInput;
+        [SerializeField, ReadOnlyField] private Duo thrust;
+        [SerializeField, ReadOnlyField] private float thrustPower;
 
-        [Header("Debug - Thrust")]
-        [SerializeField, Pair("Left", "Right")] private Vector2 currentThrustForce;
-        [SerializeField] private float totalThrustForce;
-
-        [Header("Debug - Turn")]
-        [SerializeField, Pair("Left", "Right")] private Vector2 currentTurnForce;
-        [SerializeField] private float totalTurnForce;
-        [SerializeField] private float currentAngleZ;
+        [Header("Debug - Turning")]
+        [SerializeField, ReadOnlyField] private float yaw;
+        // TODO: turn speed, decay, damping
 
         private void Awake()
         {
@@ -41,35 +40,37 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
-            Duo input = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
-            if (swapSides)
-                input.Swap();
+            moveInput = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
+            if (invertControls)
+                moveInput.Swap();
 
-            Duo thrustForce = input * thrusterForce;
-            Duo turnForce = input * thrusterTorque;
+            thrust = moveInput * thrusterForce;
 
-            Vector2 leftDirection = leftThruster.up * thrustForce.Left;
-            Vector2 rightDirection = rightThruster.up * thrustForce.Right;
+            Move();
+            Turn();
+        }
 
-            (thrusterInput, currentThrustForce, currentTurnForce) = (input, thrustForce, turnForce);
+        private void LateUpdate()
+        {
+            Vector2 leftDirection = leftThruster.up * moveInput.Left;
+            Vector2 rightDirection = rightThruster.up * moveInput.Right;
+
             D.raw(new Shape.Arrow2D(leftThruster.position, leftDirection));
             D.raw(new Shape.Arrow2D(rightThruster.position, rightDirection));
-
-            Move(thrustForce);
-            Turn(turnForce);
         }
 
-        private void Move(Duo thrusts)
+        private void Move()
         {
-            totalThrustForce = thrusts.Left + thrusts.Right;
-            transform.Translate(0, totalThrustForce * Time.deltaTime, 0, Space.Self);
+            thrustPower = thrust.Left + thrust.Right;
+            transform.Translate(0, thrustPower * Time.deltaTime, 0);
         }
 
-        private void Turn(Duo torques)
+        private void Turn()
         {
-            totalTurnForce = torques.Right - torques.Left;
-            currentAngleZ = Mathf.Clamp(currentAngleZ + (totalTurnForce * Time.deltaTime), minAngleZ, maxAngleZ);
-            transform.localEulerAngles = new Vector3(0, 0, currentAngleZ);
+            float turn = moveInput.Left - moveInput.Right;
+            yaw = turn.Remap(-1, 1).To(minAngleZ, maxAngleZ);
+
+            transform.localEulerAngles = new Vector3(0, 0, yaw);
         }
     }
 }
