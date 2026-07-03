@@ -181,7 +181,7 @@ MonoBehaviour:
   swapSides: 1
   leftThruster: {fileID: 7456228798354704545}
   rightThruster: {fileID: 2714657799407899289}
-  thrusterForce: 5
+  thrusterForce: 20
   thrusterTorque: 300
   minAngleZ: -45
   maxAngleZ: 45
