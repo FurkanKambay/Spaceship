@@ -7,7 +7,7 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Fire Thruster Left",
+                    "name": "Move Left",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
                     "expectedControlType": "",
@@ -16,7 +16,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire Thruster Right",
+                    "name": "Move Right",
                     "type": "Button",
                     "id": "484e9bfb-00f6-4e6d-b8c6-2bce06a57f41",
                     "expectedControlType": "",
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Thruster Left",
+                    "action": "Move Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -166,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Thruster Left",
+                    "action": "Move Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -199,7 +199,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire Thruster Right",
+                    "action": "Move Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -210,7 +210,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Fire Thruster Right",
+                    "action": "Move Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

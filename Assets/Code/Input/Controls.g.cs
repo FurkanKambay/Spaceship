@@ -95,7 +95,7 @@ namespace FK.Spaceship
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
-                    ""name"": ""Fire Thruster Left"",
+                    ""name"": ""Move Left"",
                     ""type"": ""Button"",
                     ""id"": ""27c5f898-bc57-4ee1-8800-db469aca5fe3"",
                     ""expectedControlType"": """",
@@ -104,7 +104,7 @@ namespace FK.Spaceship
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Fire Thruster Right"",
+                    ""name"": ""Move Right"",
                     ""type"": ""Button"",
                     ""id"": ""484e9bfb-00f6-4e6d-b8c6-2bce06a57f41"",
                     ""expectedControlType"": """",
@@ -243,7 +243,7 @@ namespace FK.Spaceship
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Fire Thruster Left"",
+                    ""action"": ""Move Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -254,7 +254,7 @@ namespace FK.Spaceship
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Fire Thruster Left"",
+                    ""action"": ""Move Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -287,7 +287,7 @@ namespace FK.Spaceship
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Fire Thruster Right"",
+                    ""action"": ""Move Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -298,7 +298,7 @@ namespace FK.Spaceship
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Fire Thruster Right"",
+                    ""action"": ""Move Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -780,8 +780,8 @@ namespace FK.Spaceship
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_FireThrusterLeft = m_Player.FindAction("Fire Thruster Left", throwIfNotFound: true);
-            m_Player_FireThrusterRight = m_Player.FindAction("Fire Thruster Right", throwIfNotFound: true);
+            m_Player_MoveLeft = m_Player.FindAction("Move Left", throwIfNotFound: true);
+            m_Player_MoveRight = m_Player.FindAction("Move Right", throwIfNotFound: true);
             m_Player_DashLeft = m_Player.FindAction("Dash Left", throwIfNotFound: true);
             m_Player_DashRight = m_Player.FindAction("Dash Right", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
@@ -878,8 +878,8 @@ namespace FK.Spaceship
         // Player
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-        private readonly InputAction m_Player_FireThrusterLeft;
-        private readonly InputAction m_Player_FireThrusterRight;
+        private readonly InputAction m_Player_MoveLeft;
+        private readonly InputAction m_Player_MoveRight;
         private readonly InputAction m_Player_DashLeft;
         private readonly InputAction m_Player_DashRight;
         private readonly InputAction m_Player_Attack;
@@ -897,13 +897,13 @@ namespace FK.Spaceship
             /// </summary>
             public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Player/FireThrusterLeft".
+            /// Provides access to the underlying input action "Player/MoveLeft".
             /// </summary>
-            public InputAction @FireThrusterLeft => m_Wrapper.m_Player_FireThrusterLeft;
+            public InputAction @MoveLeft => m_Wrapper.m_Player_MoveLeft;
             /// <summary>
-            /// Provides access to the underlying input action "Player/FireThrusterRight".
+            /// Provides access to the underlying input action "Player/MoveRight".
             /// </summary>
-            public InputAction @FireThrusterRight => m_Wrapper.m_Player_FireThrusterRight;
+            public InputAction @MoveRight => m_Wrapper.m_Player_MoveRight;
             /// <summary>
             /// Provides access to the underlying input action "Player/DashLeft".
             /// </summary>
@@ -950,12 +950,12 @@ namespace FK.Spaceship
             {
                 if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-                @FireThrusterLeft.started += instance.OnFireThrusterLeft;
-                @FireThrusterLeft.performed += instance.OnFireThrusterLeft;
-                @FireThrusterLeft.canceled += instance.OnFireThrusterLeft;
-                @FireThrusterRight.started += instance.OnFireThrusterRight;
-                @FireThrusterRight.performed += instance.OnFireThrusterRight;
-                @FireThrusterRight.canceled += instance.OnFireThrusterRight;
+                @MoveLeft.started += instance.OnMoveLeft;
+                @MoveLeft.performed += instance.OnMoveLeft;
+                @MoveLeft.canceled += instance.OnMoveLeft;
+                @MoveRight.started += instance.OnMoveRight;
+                @MoveRight.performed += instance.OnMoveRight;
+                @MoveRight.canceled += instance.OnMoveRight;
                 @DashLeft.started += instance.OnDashLeft;
                 @DashLeft.performed += instance.OnDashLeft;
                 @DashLeft.canceled += instance.OnDashLeft;
@@ -982,12 +982,12 @@ namespace FK.Spaceship
             /// <seealso cref="PlayerActions" />
             private void UnregisterCallbacks(IPlayerActions instance)
             {
-                @FireThrusterLeft.started -= instance.OnFireThrusterLeft;
-                @FireThrusterLeft.performed -= instance.OnFireThrusterLeft;
-                @FireThrusterLeft.canceled -= instance.OnFireThrusterLeft;
-                @FireThrusterRight.started -= instance.OnFireThrusterRight;
-                @FireThrusterRight.performed -= instance.OnFireThrusterRight;
-                @FireThrusterRight.canceled -= instance.OnFireThrusterRight;
+                @MoveLeft.started -= instance.OnMoveLeft;
+                @MoveLeft.performed -= instance.OnMoveLeft;
+                @MoveLeft.canceled -= instance.OnMoveLeft;
+                @MoveRight.started -= instance.OnMoveRight;
+                @MoveRight.performed -= instance.OnMoveRight;
+                @MoveRight.canceled -= instance.OnMoveRight;
                 @DashLeft.started -= instance.OnDashLeft;
                 @DashLeft.performed -= instance.OnDashLeft;
                 @DashLeft.canceled -= instance.OnDashLeft;
@@ -1256,19 +1256,19 @@ namespace FK.Spaceship
         public interface IPlayerActions
         {
             /// <summary>
-            /// Method invoked when associated input action "Fire Thruster Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Move Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnFireThrusterLeft(InputAction.CallbackContext context);
+            void OnMoveLeft(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Fire Thruster Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Move Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnFireThrusterRight(InputAction.CallbackContext context);
+            void OnMoveRight(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Dash Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
