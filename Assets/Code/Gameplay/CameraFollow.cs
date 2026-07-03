@@ -1,5 +1,6 @@
 using FK.Common.Extensions;
 using UnityEngine;
+using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay
 {
@@ -14,7 +15,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] Vector2 followDecay;
 
         [Header("Debug")]
-        [SerializeField] private Vector3 destination;
+        [SerializeField, ReadOnlyField] private Vector3 destination;
 
         private void LateUpdate()
         {
