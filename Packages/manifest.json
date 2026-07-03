@@ -17,6 +17,7 @@
     "com.unity.test-framework": "1.7.0",
     "com.unity.timeline": "1.8.12",
     "com.unity.ugui": "2.5.0",
+    "com.unity.visualeffectgraph": "17.5.0",
     "com.vertx.attributes": "1.6.0",
     "com.vertx.debugging": "3.0.3",
     "com.unity.modules.accessibility": "1.0.0",
