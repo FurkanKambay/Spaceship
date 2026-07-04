@@ -24,9 +24,11 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private ShipStats stats;
 
         [Header("Debug - Input")]
-        [SerializeField, ReadOnlyField] private Duo moveInput;
-        [SerializeField, ReadOnlyField] private Duo thrust;
-        [SerializeField, ReadOnlyField] private float thrustPower;
+        [SerializeField, ReadOnlyField] private Duo moveInputs;
+
+        [Header("Debug - Thrust")]
+        [SerializeField, ReadOnlyField] private float desiredThrust;
+        [SerializeField, ReadOnlyField] private float totalThrust;
 
         [Header("Debug - Turning")]
         [SerializeField, ReadOnlyField] private float desiredYaw;
@@ -56,24 +58,26 @@ namespace FK.Spaceship.Gameplay
 
         private void LateUpdate()
         {
-            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInput.Left));
-            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInput.Right));
+            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
+            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
         }
 
         private void ReadInput()
         {
-            moveInput = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
+            moveInputs = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
             if (invertControls)
-                moveInput.Swap();
+                moveInputs.Swap();
         }
 
         private void Move(float deltaTime)
         {
-            thrust = moveInput * stats.ThrusterForce;
-            thrustPower = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + thrust.Left + thrust.Right);
+            float manualThrust = (moveInputs.Left + moveInputs.Right) * stats.ThrusterForce;
+            desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
+
+            totalThrust = totalThrust.ExpDecay(desiredThrust, stats.Acceleration, deltaTime);
 
             // apply movement
-            var localMovement = new Vector3(0, thrustPower * deltaTime, 0);
+            var localMovement = new Vector3(0, totalThrust * deltaTime, 0);
             Vector3 desiredPosition = transform.position + transform.TransformDirection(localMovement);
 
             // confine to level bounds
@@ -84,7 +88,7 @@ namespace FK.Spaceship.Gameplay
 
         private void Turn(float deltaTime)
         {
-            float turn = moveInput.Left - moveInput.Right;
+            float turn = moveInputs.Left - moveInputs.Right;
             desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
 
             yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);

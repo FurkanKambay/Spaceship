@@ -182,13 +182,11 @@ MonoBehaviour:
   leftThruster: {fileID: 7456228798354704545}
   rightThruster: {fileID: 2714657799407899289}
   stats: {fileID: 11400000, guid: 131f0f1d07dfdda449c6451d0d633309, type: 2}
-  moveInput:
+  moveInputs:
     Left: 0
     Right: 0
-  thrust:
-    Left: 0
-    Right: 0
-  thrustPower: 0
+  desiredThrust: 0
+  totalThrust: 0
   desiredYaw: 0
   yaw: 0
   levelBounds:

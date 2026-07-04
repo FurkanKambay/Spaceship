@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipStats
   baseThrust: 5
   thrusterForce: 15
+  acceleration: 6
   maxTotalThrust: 20
   turnSpeed: 8
   yawLimits: {x: -45, y: 45}

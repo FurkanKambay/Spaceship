@@ -9,6 +9,7 @@ namespace FK.Spaceship.Gameplay.Data
         [Header("Thrusters")]
         [SerializeField, Min(0)] private float baseThrust = 1f;
         [SerializeField, Min(0)] private float thrusterForce = 20f;
+        [SerializeField, Min(0)] private float acceleration = 5f;
         [SerializeField, Min(0)] private float maxTotalThrust = 20f;
 
         [Header("Turning")]
@@ -17,6 +18,7 @@ namespace FK.Spaceship.Gameplay.Data
 
         public float BaseThrust => baseThrust;
         public float ThrusterForce => thrusterForce;
+        public float Acceleration => acceleration;
         public float MaxTotalThrust => maxTotalThrust;
 
         public Vector2 YawLimits => yawLimits;
