@@ -19,7 +19,10 @@ namespace FK.Spaceship.Gameplay
             Assert.IsNotNull(cameraFollow);
 
             if (!ship)
+            {
                 ship = Instantiate(shipPrefab);
+                ship.name = "🚀 Player Ship";
+            }
 
             InjectDependencies();
         }
