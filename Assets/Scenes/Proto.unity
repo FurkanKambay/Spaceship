@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &320302590 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3844537484314177719, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-  m_PrefabInstance: {fileID: 6075028594176814536}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &421992311
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f85c1b95c3403dbbc4c5fdf73022cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.LevelManager
-  ship: {fileID: 6075028594176814537}
+  cameraFollow: {fileID: 519420033}
+  ship: {fileID: 0}
+  shipPrefab: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
   levelBounds:
     Left: -15
     Right: 15
@@ -322,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b650524eec4f457cbe1a9c7b4c72791c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.CameraFollow
-  target: {fileID: 320302590}
+  target: {fileID: 0}
   offsetZ: -10
   offset: {x: 0, y: 8}
   followDecay: {x: 0, y: 20}
@@ -732,50 +729,6 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 519420032}
     weight: 1
---- !u!1001 &6075028594176814536
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3844537484314177719, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3844537484314177719, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3844537484314177719, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6004854799827479174, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-      propertyPath: m_Name
-      value: Ship
-      objectReference: {fileID: 0}
-    - target: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-      propertyPath: baseThrust
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
---- !u!114 &6075028594176814537 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-  m_PrefabInstance: {fileID: 6075028594176814536}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dec99ff4ad593f47a822cb9ae89e25f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Spaceship::Spaceship.ShipController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -783,5 +736,4 @@ SceneRoots:
   - {fileID: 1403670359}
   - {fileID: 519420032}
   - {fileID: 421992312}
-  - {fileID: 6075028594176814536}
   - {fileID: 630999027}

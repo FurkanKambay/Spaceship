@@ -17,8 +17,16 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug")]
         [SerializeField, ReadOnlyField] private Vector3 destination;
 
+        internal void InjectTarget(Transform newTarget)
+        {
+            target = newTarget;
+        }
+
         private void LateUpdate()
         {
+            if (!target)
+                return;
+
             destination = target.position + (Vector3)offset;
             PanTowardsDestinationWithDecay(Time.deltaTime);
         }
