@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Player
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: bde67cd63db57f24aa38641c45feb389
+  m_GroupName: Player
+  m_GUID: 3fbc2d8b35153a24db18d9a6ed95bb7f
   m_SerializeEntries:
-  - m_GUID: 8c9cfa26abfee488c85f1582747f6a02
-    m_Address: Proto.unity
+  - m_GUID: 4415298f54224f044ad8ff0f6da4c35c
+    m_Address: Ship.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -24,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 87534300c0a59f44a9554acfd5d62a83, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 3c64e7473ddc6c947826ddab379637e9, type: 2}
-    - {fileID: 11400000, guid: f2c5b0b5d26730144af02e15a33517b1, type: 2}
+    - {fileID: 11400000, guid: e150eee6da6ccb24d8746b0702a9cb9b, type: 2}
+    - {fileID: 11400000, guid: 5e4fc36f3f6b2094288f97dcb6097b50, type: 2}
