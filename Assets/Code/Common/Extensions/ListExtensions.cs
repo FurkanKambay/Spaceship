@@ -7,15 +7,15 @@ namespace FK.Common.Extensions
     [PublicAPI]
     public static class ListExtensions
     {
+        private static RNGCryptoServiceProvider provider = new();
+        private static byte[] box = new byte[1];
+
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
-            var provider = new RNGCryptoServiceProvider();
 
             while (n > 1)
             {
-                byte[] box = new byte[1];
-
                 do
                     provider.GetBytes(box);
                 while (!(box[0] < n * (byte.MaxValue / n)));

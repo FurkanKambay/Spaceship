@@ -56,12 +56,6 @@ namespace FK.Spaceship.Gameplay
             Turn(Time.deltaTime);
         }
 
-        private void LateUpdate()
-        {
-            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
-            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
-        }
-
         private void ReadInput()
         {
             moveInputs = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
@@ -95,5 +89,13 @@ namespace FK.Spaceship.Gameplay
 
             transform.localEulerAngles = new Vector3(0, 0, yaw);
         }
+
+#if UNITY_EDITOR
+        private void LateUpdate()
+        {
+            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
+            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
+        }
+#endif
     }
 }

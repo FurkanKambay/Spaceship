@@ -11,8 +11,7 @@ namespace FK.Spaceship.Editor
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class MainToolbarButtons
     {
-        #region Buttons
-
+#region Buttons
         [MainToolbarElement("Open Project Settings", defaultDockPosition = MainToolbarDockPosition.Left)]
         public static MainToolbarElement ProjectSettingsButton()
         {
@@ -29,8 +28,7 @@ namespace FK.Spaceship.Editor
             return new MainToolbarButton(content, () => Process.Start("explorer.exe", "Builds"));
         }
 #endif
-
-        #endregion
+#endregion
 
         private static MainToolbarButton GetSceneButton(string text, string sceneSubPath) =>
             new(new MainToolbarContent(text, $"Open \"{sceneSubPath}.unity\""), () => TryOpenScene(sceneSubPath));
