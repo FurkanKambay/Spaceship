@@ -17,7 +17,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private Transform rightThruster;
 
         [Header("Config")]
-        [SerializeField] private bool invertControls = true;
+        [SerializeField] private bool invertControls;
         [SerializeField] private ShipStats stats;
 
         [Header("Debug - Input")]
@@ -27,6 +27,7 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug - Thrust")]
         [SerializeField, ReadOnlyField] private float desiredThrust;
         [SerializeField, ReadOnlyField] private float totalThrust;
+        [SerializeField, ReadOnlyField] private float dashVelocity;
 
         [Header("Debug - Turning")]
         [SerializeField, ReadOnlyField] private float desiredYaw;
@@ -62,10 +63,29 @@ namespace FK.Spaceship.Gameplay
             var localMovement = new Vector3(0, totalThrust * deltaTime, 0);
             Vector3 desiredPosition = transform.position + transform.TransformDirection(localMovement);
 
+            HandleDash(deltaTime);
+            desiredPosition.x += dashVelocity * deltaTime;
+
             // confine to level bounds
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, levelBounds.Left, levelBounds.Right);
 
             transform.position = desiredPosition;
+        }
+
+        private void HandleDash(float deltaTime)
+        {
+            if (Mathf.Abs(dashVelocity) > 0)
+            {
+                dashVelocity = dashVelocity.ExpDecay(0, stats.DashDecay, deltaTime);
+                if (Mathf.Abs(dashVelocity) < 0.001)
+                    dashVelocity = 0;
+            }
+            else
+            {
+                float dashDirection = dashInputs.Right - dashInputs.Left;
+                if (dashDirection != 0)
+                    dashVelocity = dashDirection * stats.DashForce;
+            }
         }
 
         private void Turn(float deltaTime)

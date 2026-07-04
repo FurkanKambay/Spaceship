@@ -372,6 +372,7 @@ MonoBehaviour:
     Right: 0
   desiredThrust: 0
   totalThrust: 0
+  dashVelocity: 0
   desiredYaw: 0
   yaw: 0
   levelBounds:

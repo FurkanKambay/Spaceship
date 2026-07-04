@@ -18,3 +18,5 @@ MonoBehaviour:
   maxTotalThrust: 20
   turnSpeed: 8
   yawLimits: {x: -45, y: 45}
+  dashForce: 100
+  dashDecay: 20
