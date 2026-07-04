@@ -163,12 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f85c1b95c3403dbbc4c5fdf73022cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.LevelManager
+  inputService: {fileID: 2138388033}
   cameraFollow: {fileID: 519420033}
-  ship: {fileID: 0}
   shipPrefab: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
   levelBounds:
     Left: -15
     Right: 15
+  ship: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,11 +730,56 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 519420032}
     weight: 1
+--- !u!1 &2138388031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138388032}
+  - component: {fileID: 2138388033}
+  m_Layer: 0
+  m_Name: Input Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2138388032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138388031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138388033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138388031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca3aa82a74140cd9316d5af9577e975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Input.InputService
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1403670359}
   - {fileID: 519420032}
+  - {fileID: 2138388032}
   - {fileID: 421992312}
   - {fileID: 630999027}

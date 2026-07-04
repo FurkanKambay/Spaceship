@@ -1,4 +1,5 @@
 using FK.Common;
+using FK.Spaceship.Input;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -7,15 +8,19 @@ namespace FK.Spaceship.Gameplay
     public class LevelManager : MonoBehaviour
     {
         [Header("Scene References")]
+        [SerializeField] private InputService inputService;
         [SerializeField] private CameraFollow cameraFollow;
-        [SerializeField] private ShipController ship;
 
         [Header("Config")]
         [SerializeField] private ShipController shipPrefab;
         [SerializeField] private Duo levelBounds;
 
+        [Header("State")]
+        [SerializeField] private ShipController ship;
+
         private void Awake()
         {
+            Assert.IsNotNull(inputService);
             Assert.IsNotNull(cameraFollow);
 
             if (!ship)
@@ -32,6 +37,7 @@ namespace FK.Spaceship.Gameplay
             if (!ship)
                 throw new UnassignedReferenceException(nameof(ship));
 
+            inputService.Controls.Player.SetCallbacks(ship);
             ship.SetLevel(levelBounds);
             cameraFollow.InjectTarget(ship.transform);
         }

@@ -3,28 +3,26 @@ using FK.Common.Extensions;
 using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
 using Vertx.Attributes;
 using Vertx.Debugging;
+using IPlayerActions = FK.Spaceship.Controls.IPlayerActions;
+using InputContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace FK.Spaceship.Gameplay
 {
-    public class ShipController : MonoBehaviour
+    public class ShipController : MonoBehaviour, IPlayerActions
     {
-        [Header("Input")]
-        [SerializeField] private InputActionReference leftInput;
-        [SerializeField] private InputActionReference rightInput;
-        [SerializeField] private bool invertControls = true;
-
         [Header("Prefab References")]
         [SerializeField] private Transform leftThruster;
         [SerializeField] private Transform rightThruster;
 
         [Header("Config")]
+        [SerializeField] private bool invertControls = true;
         [SerializeField] private ShipStats stats;
 
         [Header("Debug - Input")]
         [SerializeField, ReadOnlyField] private Duo moveInputs;
+        [SerializeField, ReadOnlyField] private Duo dashInputs;
 
         [Header("Debug - Thrust")]
         [SerializeField, ReadOnlyField] private float desiredThrust;
@@ -38,31 +36,19 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug - Level")]
         [SerializeField] private Duo levelBounds;
 
-        internal void SetLevel(Duo bounds)
-        {
-            levelBounds = bounds;
-        }
+        internal void SetLevel(Duo bounds) => levelBounds = bounds;
 
         private void Awake()
         {
             Assert.IsNotNull(stats);
-            leftInput.asset.Enable();
         }
 
         private void Update()
         {
-            ReadInput();
             Move(Time.deltaTime);
             Turn(Time.deltaTime);
-        }
 
-        private void ReadInput()
-        {
-            moveInputs = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
-
-            // TODO: move visualization out
-            leftThruster.gameObject.SetActive(moveInputs.Right > 0.1f);
-            rightThruster.gameObject.SetActive(moveInputs.Left > 0.1f);
+            UpdateVisuals();
         }
 
         private void Move(float deltaTime)
@@ -91,6 +77,23 @@ namespace FK.Spaceship.Gameplay
 
             transform.localEulerAngles = new Vector3(0, 0, yaw);
         }
+
+        private void UpdateVisuals()
+        {
+            // TODO: move visualization out
+            leftThruster.gameObject.SetActive(moveInputs.Right > 0.1f);
+            rightThruster.gameObject.SetActive(moveInputs.Left > 0.1f);
+        }
+
+        void IPlayerActions.OnMoveLeft(InputContext context) => moveInputs.Left = context.ReadValue<float>();
+        void IPlayerActions.OnMoveRight(InputContext context) => moveInputs.Right = context.ReadValue<float>();
+
+        void IPlayerActions.OnDashLeft(InputContext context) => dashInputs.Left = context.ReadValue<float>();
+        void IPlayerActions.OnDashRight(InputContext context) => dashInputs.Right = context.ReadValue<float>();
+
+        void IPlayerActions.OnAttack(InputContext context) => Log.Info("[Input] Attack");
+        void IPlayerActions.OnPrevious(InputContext context) => Log.Info("[Input] Previous");
+        void IPlayerActions.OnNext(InputContext context) => Log.Info("[Input] Next");
 
 #if UNITY_EDITOR
         private void LateUpdate()

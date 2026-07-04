@@ -8,21 +8,21 @@
             "actions": [
                 {
                     "name": "Move Left",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Move Right",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "484e9bfb-00f6-4e6d-b8c6-2bce06a57f41",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Dash Left",
