@@ -61,6 +61,10 @@ namespace FK.Spaceship.Gameplay
             moveInputs = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
             if (invertControls)
                 moveInputs.Swap();
+
+            // TODO: move visualization out
+            leftThruster.gameObject.SetActive(moveInputs.Right > 0.1f);
+            rightThruster.gameObject.SetActive(moveInputs.Left > 0.1f);
         }
 
         private void Move(float deltaTime)
