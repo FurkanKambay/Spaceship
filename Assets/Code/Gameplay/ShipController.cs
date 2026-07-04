@@ -66,6 +66,9 @@ namespace FK.Spaceship.Gameplay
             desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
 
             yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
+            if (Mathf.Approximately(yaw, desiredYaw))
+                yaw = desiredYaw;
+
             return Quaternion.Euler(transform.forward * yaw);
         }
 
@@ -75,6 +78,8 @@ namespace FK.Spaceship.Gameplay
             desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
 
             totalThrust = totalThrust.ExpDecay(desiredThrust, stats.Acceleration, deltaTime);
+            if (Mathf.Approximately(totalThrust, desiredThrust))
+                totalThrust = desiredThrust;
 
             // apply movement
             var localMovement = new Vector3(0, totalThrust * deltaTime, 0);
