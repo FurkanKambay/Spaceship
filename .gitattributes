@@ -152,6 +152,7 @@ NavMesh-*.asset                     lfs
 *.dll                               lfs
 *.pdb                               lfs
 *.so                                lfs
+*.wasm                              lfs
 
 # Fonts
 *.otf                               lfs
