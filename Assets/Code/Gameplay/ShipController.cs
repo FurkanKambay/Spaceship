@@ -59,8 +59,6 @@ namespace FK.Spaceship.Gameplay
         private void ReadInput()
         {
             moveInputs = new Duo(leftInput.action.ReadValue<float>(), rightInput.action.ReadValue<float>());
-            if (invertControls)
-                moveInputs.Swap();
 
             // TODO: move visualization out
             leftThruster.gameObject.SetActive(moveInputs.Right > 0.1f);
@@ -86,7 +84,7 @@ namespace FK.Spaceship.Gameplay
 
         private void Turn(float deltaTime)
         {
-            float turn = moveInputs.Left - moveInputs.Right;
+            float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
             desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
 
             yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
