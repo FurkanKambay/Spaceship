@@ -181,10 +181,7 @@ MonoBehaviour:
   invertControls: 0
   leftThruster: {fileID: 7456228798354704545}
   rightThruster: {fileID: 2714657799407899289}
-  thrusterForce: 20
-  baseThrust: 5
-  yawLimits: {x: -45, y: 45}
-  turnSpeed: 20
+  stats: {fileID: 11400000, guid: 131f0f1d07dfdda449c6451d0d633309, type: 2}
   moveInput:
     Left: 0
     Right: 0
