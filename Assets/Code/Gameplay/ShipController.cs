@@ -46,13 +46,30 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
-            Move(Time.deltaTime);
-            Turn(Time.deltaTime);
-
-            UpdateVisuals();
+            Quaternion rotation = Turn(Time.deltaTime);
+            Vector3 position = Move(Time.deltaTime);
+            transform.SetPositionAndRotation(position, rotation);
         }
 
-        private void Move(float deltaTime)
+        private void LateUpdate()
+        {
+            UpdateVisuals();
+#if UNITY_EDITOR
+            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
+            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
+#endif
+        }
+
+        private Quaternion Turn(float deltaTime)
+        {
+            float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
+            desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
+
+            yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
+            return Quaternion.Euler(transform.forward * yaw);
+        }
+
+        private Vector3 Move(float deltaTime)
         {
             float manualThrust = (moveInputs.Left + moveInputs.Right) * stats.ThrusterForce;
             desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
@@ -69,7 +86,7 @@ namespace FK.Spaceship.Gameplay
             // confine to level bounds
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, levelBounds.Left, levelBounds.Right);
 
-            transform.position = desiredPosition;
+            return desiredPosition;
         }
 
         private void HandleDash(float deltaTime)
@@ -88,16 +105,6 @@ namespace FK.Spaceship.Gameplay
             }
         }
 
-        private void Turn(float deltaTime)
-        {
-            float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
-            desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
-
-            yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
-
-            transform.localEulerAngles = new Vector3(0, 0, yaw);
-        }
-
         private void UpdateVisuals()
         {
             // TODO: move visualization out
@@ -114,13 +121,5 @@ namespace FK.Spaceship.Gameplay
         void IPlayerActions.OnAttack(InputContext context) => Log.Info("[Input] Attack");
         void IPlayerActions.OnPrevious(InputContext context) => Log.Info("[Input] Previous");
         void IPlayerActions.OnNext(InputContext context) => Log.Info("[Input] Next");
-
-#if UNITY_EDITOR
-        private void LateUpdate()
-        {
-            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
-            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
-        }
-#endif
     }
 }
