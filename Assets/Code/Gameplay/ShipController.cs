@@ -22,6 +22,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, Min(0)] private float thrusterForce = 20f;
         [SerializeField, Min(0)] private float baseThrust = 1f;
         [SerializeField, MinMax(-180, 180)] private Vector2 yawLimits = new(-45, 45);
+        [SerializeField, Min(0)] private float turnSpeed = 20f;
 
         [Header("Debug - Input")]
         [SerializeField, ReadOnlyField] private Duo moveInput;
@@ -29,6 +30,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, ReadOnlyField] private float thrustPower;
 
         [Header("Debug - Turning")]
+        [SerializeField, ReadOnlyField] private float desiredYaw;
         [SerializeField, ReadOnlyField] private float yaw;
         // TODO: turn speed, decay, damping
 
@@ -48,8 +50,8 @@ namespace FK.Spaceship.Gameplay
         private void Update()
         {
             ReadInput();
-            Move();
-            Turn();
+            Move(Time.deltaTime);
+            Turn(Time.deltaTime);
         }
 
         private void LateUpdate()
@@ -65,13 +67,13 @@ namespace FK.Spaceship.Gameplay
                 moveInput.Swap();
         }
 
-        private void Move()
+        private void Move(float deltaTime)
         {
             thrust = moveInput * thrusterForce;
             thrustPower = baseThrust + thrust.Left + thrust.Right;
 
             // apply movement
-            var localMovement = new Vector3(0, thrustPower * Time.deltaTime, 0);
+            var localMovement = new Vector3(0, thrustPower * deltaTime, 0);
             Vector3 desiredPosition = transform.position + transform.TransformDirection(localMovement);
 
             // confine to level bounds
@@ -80,10 +82,12 @@ namespace FK.Spaceship.Gameplay
             transform.position = desiredPosition;
         }
 
-        private void Turn()
+        private void Turn(float deltaTime)
         {
             float turn = moveInput.Left - moveInput.Right;
-            yaw = turn.Remap(-1, 1).To(yawLimits.x, yawLimits.y);
+            desiredYaw = turn.Remap(-1, 1).To(yawLimits.x, yawLimits.y);
+
+            yaw = yaw.ExpDecay(desiredYaw, turnSpeed, deltaTime);
 
             transform.localEulerAngles = new Vector3(0, 0, yaw);
         }
