@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 1647507712}
   - component: {fileID: 1647507711}
   m_Layer: 0
-  m_Name: VFX Dust graph
+  m_Name: "\u2728 Space Dust VFX"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
