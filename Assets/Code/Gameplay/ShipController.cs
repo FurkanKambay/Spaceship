@@ -21,8 +21,7 @@ namespace FK.Spaceship.Gameplay
         [Header("Config")]
         [SerializeField, Min(0)] private float thrusterForce = 20f;
         [SerializeField, Min(0)] private float baseThrust = 1f;
-        [SerializeField, Range(-180, 180)] private float minAngleZ = -45f;
-        [SerializeField, Range(-180, 180)] private float maxAngleZ = 45f;
+        [SerializeField, MinMax(-180, 180)] private Vector2 yawLimits = new(-45, 45);
 
         [Header("Debug - Input")]
         [SerializeField, ReadOnlyField] private Duo moveInput;
@@ -84,7 +83,7 @@ namespace FK.Spaceship.Gameplay
         private void Turn()
         {
             float turn = moveInput.Left - moveInput.Right;
-            yaw = turn.Remap(-1, 1).To(minAngleZ, maxAngleZ);
+            yaw = turn.Remap(-1, 1).To(yawLimits.x, yawLimits.y);
 
             transform.localEulerAngles = new Vector3(0, 0, yaw);
         }

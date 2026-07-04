@@ -183,8 +183,7 @@ MonoBehaviour:
   rightThruster: {fileID: 2714657799407899289}
   thrusterForce: 20
   baseThrust: 10
-  minAngleZ: -45
-  maxAngleZ: 45
+  yawLimits: {x: -45, y: 45}
   moveInput:
     Left: 0
     Right: 0
