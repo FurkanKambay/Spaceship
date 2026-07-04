@@ -33,6 +33,14 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, ReadOnlyField] private float yaw;
         // TODO: turn speed, decay, damping
 
+        [Header("Debug - Level")]
+        [SerializeField] private Duo levelBounds;
+
+        internal void SetLevel(Duo bounds)
+        {
+            levelBounds = bounds;
+        }
+
         private void Awake()
         {
             leftInput.asset.Enable();
@@ -61,9 +69,16 @@ namespace FK.Spaceship.Gameplay
         private void Move()
         {
             thrust = moveInput * thrusterForce;
-
             thrustPower = baseThrust + thrust.Left + thrust.Right;
-            transform.Translate(0, thrustPower * Time.deltaTime, 0);
+
+            // apply movement
+            var localMovement = new Vector3(0, thrustPower * Time.deltaTime, 0);
+            Vector3 desiredPosition = transform.position + transform.TransformDirection(localMovement);
+
+            // confine to level bounds
+            desiredPosition.x = Mathf.Clamp(desiredPosition.x, levelBounds.Left, levelBounds.Right);
+
+            transform.position = desiredPosition;
         }
 
         private void Turn()

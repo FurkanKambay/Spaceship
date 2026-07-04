@@ -193,6 +193,9 @@ MonoBehaviour:
     Right: 0
   thrustPower: 0
   yaw: 0
+  levelBounds:
+    Left: 0
+    Right: 0
 --- !u!1 &6186768876511476940
 GameObject:
   m_ObjectHideFlags: 0
