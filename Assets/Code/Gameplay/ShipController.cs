@@ -70,7 +70,7 @@ namespace FK.Spaceship.Gameplay
         private void Move(float deltaTime)
         {
             thrust = moveInput * stats.ThrusterForce;
-            thrustPower = stats.BaseThrust + thrust.Left + thrust.Right;
+            thrustPower = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + thrust.Left + thrust.Right);
 
             // apply movement
             var localMovement = new Vector3(0, thrustPower * deltaTime, 0);
