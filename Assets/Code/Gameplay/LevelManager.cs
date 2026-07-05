@@ -12,6 +12,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private InputService inputService;
         [SerializeField] private CameraFollow cameraFollow;
         [SerializeField] private CameraShake cameraShake;
+        [SerializeField] private CameraZoomController cameraZoom;
 
         [Header("Config")]
         [SerializeField] private ShipController shipPrefab;
@@ -44,6 +45,7 @@ namespace FK.Spaceship.Gameplay
 
             inputService.Controls.Player.SetCallbacks(ship);
             cameraFollow.Inject(ship.transform);
+            cameraZoom.Inject(ship);
 
             ship.SetLevel(levelBounds);
             shipFeel.Inject(cameraShake);

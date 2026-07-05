@@ -309,6 +309,7 @@ MonoBehaviour:
   inputService: {fileID: 2138388033}
   cameraFollow: {fileID: 519420033}
   cameraShake: {fileID: 62469019}
+  cameraZoom: {fileID: 519420034}
   shipPrefab: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
   levelBounds:
     Left: -15
@@ -325,6 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: "\U0001F3A6 [Camera]"
   m_TagString: Untagged
@@ -365,6 +367,22 @@ MonoBehaviour:
   followDecay: {x: 0, y: 20}
   target: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f2483052204957958e377850d2a1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.CameraZoomController
+  zoomWhenSlow: 1
+  zoomWhenFast: 1.2
+  ship: {fileID: 0}
+  zoom: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
