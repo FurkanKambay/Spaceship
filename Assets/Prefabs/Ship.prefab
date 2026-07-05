@@ -394,9 +394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.ShipFeelController
   ship: {fileID: 7807243787640348020}
   maxThrustCameraShake: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
-  maxThrustDuration: 2
-  maxThrustRumbleLow: 0.5
-  maxThrustRumbleHigh: 0
+  rumbleDelay: 0
+  rumbleAtMaxThrust:
+    lowFrequency: 1
+    highFrequency: 0.5
   collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}
   cameraShake:
     camera: {fileID: 0}

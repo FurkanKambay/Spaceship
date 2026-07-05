@@ -1,3 +1,4 @@
+using FK.Common;
 using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,17 +13,16 @@ namespace FK.Spaceship.Gameplay
 
         [Header("Config - Max Thrust")]
         [SerializeField] private CameraShakeProfileAsset maxThrustCameraShake;
-        [SerializeField] private float maxThrustDuration = 1f;
-        [SerializeField] private float maxThrustRumbleLow;
-        [SerializeField] private float maxThrustRumbleHigh;
+        [SerializeField, Min(0)] private float rumbleDelay;
+        [SerializeField] private RumbleProfile rumbleAtMaxThrust;
 
         [Header("Config - Collision")]
         [SerializeField] private CameraShakeProfileAsset collisionShakeProfile;
 
         [Header("Debug")]
         [SerializeField, ReadOnlyField] private CameraShakeEffect cameraShake;
-        [SerializeField, Range(0, 1), ReadOnlyField] private float rumbleLowFrequency;
-        [SerializeField, Range(0, 1), ReadOnlyField] private float rumbleHighFrequency;
+        [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleLowFrequency;
+        [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleHighFrequency;
 
         private Camera camera;
         private float fullThrustTimer;
@@ -60,7 +60,7 @@ namespace FK.Spaceship.Gameplay
             }
 
             fullThrustTimer += Time.deltaTime;
-            if (fullThrustTimer > maxThrustDuration)
+            if (fullThrustTimer > rumbleDelay)
                 ActivateMaxThrustEffects();
         }
 
@@ -72,8 +72,8 @@ namespace FK.Spaceship.Gameplay
             // Rumble
             if (Gamepad.current?.IsActuated() ?? false)
             {
-                rumbleLowFrequency = maxThrustRumbleLow;
-                rumbleHighFrequency = maxThrustRumbleHigh;
+                rumbleLowFrequency = rumbleAtMaxThrust.lowFrequency;
+                rumbleHighFrequency = rumbleAtMaxThrust.highFrequency;
                 UpdateRumble();
             }
         }
