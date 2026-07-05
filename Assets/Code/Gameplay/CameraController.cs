@@ -1,4 +1,3 @@
-using FK.Common;
 using FK.Common.Extensions;
 using UnityEngine;
 using Vertx.Attributes;
@@ -13,8 +12,8 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private Vector2 followDecay;
 
         [Header("Config - Zoom")]
-        [SerializeField, Range(0, 5)] float zoomWhenSlow = 1f;
-        [SerializeField, Range(0, 5)] float zoomWhenFast = 1.5f;
+        [SerializeField, Range(0, 5)] private float zoomWhenSlow = 1f;
+        [SerializeField, Range(0, 5)] private float zoomWhenFast = 1.5f;
 
         [Header("Debug")]
         [SerializeField, ReadOnlyField] private ShipController ship;
@@ -59,13 +58,13 @@ namespace FK.Spaceship.Gameplay
 
         private void AdjustZoom()
         {
-            const float exponent = 6;
-            float t = Mathf.Pow(ship.TotalThrust / ship.MaxTotalThrust, exponent);
-
-            Log.Info($"t is {t}");
+            float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
             zoom = Mathf.Lerp(zoomWhenSlow, zoomWhenFast, t);
 
             camera.orthographicSize = initialCameraSize * zoom;
+            return;
+
+            static float easeInExpo(float x) => x == 0 ? 0 : Mathf.Pow(2, (10 * x) - 10);
         }
     }
 }
