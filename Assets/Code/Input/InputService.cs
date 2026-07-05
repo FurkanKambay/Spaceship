@@ -1,4 +1,6 @@
+using FK.Common;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace FK.Spaceship.Input
 {
@@ -12,6 +14,9 @@ namespace FK.Spaceship.Input
 
         private void OnDestroy() => Controls.Dispose();
 
+        private void OnEnable() => InputSystem.onDeviceChange += InputSystem_DeviceChanged;
+        private void OnDisable() => InputSystem.onDeviceChange -= InputSystem_DeviceChanged;
+
         private void ActivatePlayerControls()
         {
             Controls.Player.Enable();
@@ -22,6 +27,14 @@ namespace FK.Spaceship.Input
         {
             Controls.Player.Disable();
             Controls.UI.Enable();
+        }
+
+        private void InputSystem_DeviceChanged(InputDevice device, InputDeviceChange change)
+        {
+            if (device is Mouse or Keyboard) return;
+            if (change is InputDeviceChange.Removed or InputDeviceChange.Added) return;
+
+            Log.Info($"[Input] {change}: {device.displayName}");
         }
     }
 }
