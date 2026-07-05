@@ -6,37 +6,38 @@ namespace FK.Spaceship.Gameplay
 {
     public class CameraFollow : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private Transform target;
-
         [Header("Config")]
         [SerializeField] private float offsetZ = -10;
-        [SerializeField] Vector2 offset;
-        [SerializeField] Vector2 followDecay;
+        [SerializeField] private Vector2 offset;
+        [SerializeField] private Vector2 followDecay;
 
         [Header("Debug")]
+        [SerializeField] private Transform target;
         [SerializeField, ReadOnlyField] private Vector3 destination;
 
-        internal void InjectTarget(Transform newTarget)
-        {
+        internal void Inject(Transform newTarget) =>
             target = newTarget;
-        }
 
         private void LateUpdate()
         {
             if (!target)
                 return;
 
-            destination = target.position + (Vector3)offset;
+            destination = target.position + offset.WithZ(offsetZ);;
             PanTowardsDestinationWithDecay(Time.deltaTime);
         }
 
         private void PanTowardsDestinationWithDecay(float deltaTime)
         {
-            Vector3 pos = transform.position;
-            float x = pos.x.ExpDecay(destination.x, followDecay.x, deltaTime);
-            float y = pos.y.ExpDecay(destination.y, followDecay.y, deltaTime);
-            transform.position = new Vector3(x, y, offsetZ);
+            Vector3 current = transform.position;
+
+            var position = new Vector3(
+                x: current.x.ExpDecay(destination.x, followDecay.x, deltaTime),
+                y: current.y.ExpDecay(destination.y, followDecay.y, deltaTime),
+                z: offsetZ
+            );
+
+            transform.position = position;
         }
     }
 }

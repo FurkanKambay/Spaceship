@@ -360,10 +360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b650524eec4f457cbe1a9c7b4c72791c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.CameraFollow
-  target: {fileID: 0}
   offsetZ: -10
   offset: {x: 0, y: 8}
   followDecay: {x: 0, y: 20}
+  target: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:

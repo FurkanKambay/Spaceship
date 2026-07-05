@@ -43,7 +43,7 @@ namespace FK.Spaceship.Gameplay
                 throw new UnassignedReferenceException(nameof(ship));
 
             inputService.Controls.Player.SetCallbacks(ship);
-            cameraFollow.InjectTarget(ship.transform);
+            cameraFollow.Inject(ship.transform);
 
             ship.SetLevel(levelBounds);
             shipFeel.Inject(cameraShake);
