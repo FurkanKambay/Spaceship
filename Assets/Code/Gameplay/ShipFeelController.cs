@@ -36,15 +36,15 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
-            if (!ship || !cameraShake)
-                return;
-
             CheckForMaxThrust();
         }
 
 #region Max Thrust
         private void CheckForMaxThrust()
         {
+            if (!ship || !cameraShake)
+                return;
+
             if (ship.TotalThrust < ship.MaxTotalThrust)
             {
                 if (fullThrustTimer > 0)
