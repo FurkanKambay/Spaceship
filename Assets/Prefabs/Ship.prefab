@@ -416,8 +416,11 @@ MonoBehaviour:
   ship: {fileID: 7807243787640348020}
   leftThruster: {fileID: 5927910307645285999}
   rightThruster: {fileID: 1384100989740036576}
-  slowFlame: {fileID: 21300000, guid: f2044e28e5dda2a439863839cd35af14, type: 3}
-  fastFlame: {fileID: 21300000, guid: 609521acad7b4464484b9995f86c15c0, type: 3}
+  flameSprites:
+  - {fileID: 21300000, guid: f2044e28e5dda2a439863839cd35af14, type: 3}
+  - {fileID: 21300000, guid: 9fb64d8d02dda1741b20e41974efe64a, type: 3}
+  - {fileID: 21300000, guid: e97454740ac389643b4951d93a138b1a, type: 3}
+  - {fileID: 21300000, guid: 609521acad7b4464484b9995f86c15c0, type: 3}
 --- !u!1 &6186768876511476940
 GameObject:
   m_ObjectHideFlags: 0

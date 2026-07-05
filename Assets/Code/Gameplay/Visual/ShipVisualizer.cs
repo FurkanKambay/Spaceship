@@ -1,3 +1,4 @@
+using System;
 using FK.Common;
 using UnityEngine;
 
@@ -11,8 +12,7 @@ namespace FK.Spaceship.Gameplay.Visual
         [SerializeField] private SpriteRenderer rightThruster;
 
         [Header("Config")]
-        [SerializeField] private Sprite slowFlame;
-        [SerializeField] private Sprite fastFlame;
+        [SerializeField] private Sprite[] flameSprites;
 
         private void Update()
         {
@@ -20,12 +20,17 @@ namespace FK.Spaceship.Gameplay.Visual
             leftThruster.color = new Color(1, 1, 1, input.Left);
             rightThruster.color = new Color(1, 1, 1, input.Right);
 
-            bool goingMaxSpeed = ship.TotalThrust >= ship.MaxTotalThrust;
-            SetBothSprites(goingMaxSpeed ? fastFlame : slowFlame);
+            float thrustRatio = ship.TotalThrust / ship.MaxTotalThrust;
+            int spriteIndex = (int)Mathf.Lerp(0, flameSprites.Length - 1, thrustRatio);
+            SetBothSprites(spriteIndex);
         }
 
-        private void SetBothSprites(Sprite sprite)
+        private void SetBothSprites(int spriteIndex)
         {
+            if (spriteIndex < 0 || spriteIndex >= flameSprites.Length)
+                throw new ArgumentOutOfRangeException(nameof(spriteIndex));
+
+            Sprite sprite = flameSprites[spriteIndex];
             leftThruster.sprite = sprite;
             rightThruster.sprite = sprite;
         }
