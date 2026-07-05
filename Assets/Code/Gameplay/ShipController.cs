@@ -45,8 +45,8 @@ namespace FK.Spaceship.Gameplay
         public float DesiredYaw => desiredYaw;
         public float Yaw => yaw;
 
-        private Vector3 shipVelocity;
-        private Quaternion shipRotation;
+        public Vector3 ShipVelocity { get; private set; }
+        public Quaternion ShipRotation { get; private set; }
 
         internal void SetLevel(Duo bounds) => levelBounds = bounds;
 
@@ -59,11 +59,11 @@ namespace FK.Spaceship.Gameplay
         {
             float deltaTime = Time.deltaTime;
 
-            shipRotation = FindDirection(deltaTime);
-            shipVelocity = FindVelocity(deltaTime);
+            ShipRotation = FindDirection(deltaTime);
+            ShipVelocity = FindVelocity(deltaTime);
             transform.position = FindNextPosition(deltaTime);
 
-            D.raw(new Shape.Arrow2D(transform.position, shipVelocity), Color.green);
+            D.raw(new Shape.Arrow2D(transform.position, ShipVelocity), Color.green);
             D.raw(new Shape.Arrow2D(transform.position, desiredYaw + 90), Color.softYellow);
         }
 
@@ -95,13 +95,13 @@ namespace FK.Spaceship.Gameplay
 
             // apply forward movement
             var localVelocity = new Vector3(0, totalThrust, 0);
-            return shipRotation * localVelocity;
+            return ShipRotation * localVelocity;
         }
 
         private Vector3 FindNextPosition(float deltaTime)
         {
             // determine final position for this frame
-            Vector3 desiredPosition = transform.position + (shipVelocity * deltaTime);
+            Vector3 desiredPosition = transform.position + (ShipVelocity * deltaTime);
 
             // incorporate dashing
             FindDashVelocity(deltaTime);

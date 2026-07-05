@@ -16,9 +16,11 @@ namespace FK.Spaceship.Gameplay.Visual
 
         private void Update()
         {
+            ship.transform.rotation = ship.ShipRotation;
+
             Duo input = ship.MoveInputs;
-            leftThruster.color = new Color(1, 1, 1, input.Left);
-            rightThruster.color = new Color(1, 1, 1, input.Right);
+            leftThruster.color = new Color(1, 1, 1, input.Right);
+            rightThruster.color = new Color(1, 1, 1, input.Left);
 
             float thrustRatio = ship.TotalThrust / ship.MaxTotalThrust;
             int spriteIndex = (int)Mathf.Lerp(0, flameSprites.Length - 1, thrustRatio);
