@@ -414,7 +414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Visual.ShipVisualizer
   ship: {fileID: 7807243787640348020}
-  shipRenderer: {fileID: 7965046453151383193}
   leftThruster: {fileID: 5927910307645285999}
   rightThruster: {fileID: 1384100989740036576}
   flameSprites:
