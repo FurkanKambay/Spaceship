@@ -81,8 +81,9 @@ namespace FK.Spaceship.Gameplay
 #region Gamepad Rumble
         private void UpdateRumble()
         {
-            if (Gamepad.current != null)
-                Gamepad.current.SetMotorSpeeds(rumbleLowFrequency, rumbleHighFrequency);
+            Gamepad gamepad = Gamepad.current;
+            if (gamepad != null && gamepad.IsActuated())
+                gamepad.SetMotorSpeeds(rumbleLowFrequency, rumbleHighFrequency);
         }
 
         private void StopRumble()
