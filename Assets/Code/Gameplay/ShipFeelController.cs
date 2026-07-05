@@ -12,7 +12,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private ShipController ship;
 
         [Header("Config - Max Thrust")]
-        [SerializeField] private CameraShakeProfileAsset maxThrustCameraShake;
+        [SerializeField] private CameraShakeProfileAsset cameraShakeAtMaxThrust;
         [SerializeField, Min(0)] private float rumbleDelay;
         [SerializeField] private RumbleProfile rumbleAtMaxThrust;
 
@@ -30,7 +30,7 @@ namespace FK.Spaceship.Gameplay
         private void Awake()
         {
             camera = Camera.main;
-            cameraShake = new CameraShakeEffect(camera, maxThrustCameraShake);
+            cameraShake = new CameraShakeEffect(camera, cameraShakeAtMaxThrust);
         }
 
         private void OnDisable()
