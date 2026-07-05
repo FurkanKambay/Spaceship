@@ -1,6 +1,7 @@
 using FK.Common;
 using FK.Common.Extensions;
 using FK.Spaceship.Gameplay.Data;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Vertx.Attributes;
@@ -43,6 +44,9 @@ namespace FK.Spaceship.Gameplay
         public float DesiredYaw => desiredYaw;
         public float Yaw => yaw;
 
+        private Vector3 shipVelocity;
+        private Quaternion shipRotation;
+
         internal void SetLevel(Duo bounds) => levelBounds = bounds;
 
         private void Awake()
@@ -52,55 +56,68 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
-            Quaternion rotation = Turn(Time.deltaTime);
-            Vector3 position = Move(Time.deltaTime);
-            transform.SetPositionAndRotation(position, rotation);
+            float deltaTime = Time.deltaTime;
+
+            shipRotation = FindDirection(deltaTime);
+            shipVelocity = FindVelocity(deltaTime);
+            transform.position = FindNextPosition(deltaTime);
+
+            D.raw(new Shape.Arrow2D(transform.position, shipVelocity), Color.green);
+            D.raw(new Shape.Arrow2D(transform.position, desiredYaw + 90), Color.softYellow);
         }
 
         private void LateUpdate()
         {
             UpdateVisuals();
-#if UNITY_EDITOR
-            D.raw(new Shape.Arrow2D(leftThruster.position, leftThruster.up * moveInputs.Left));
-            D.raw(new Shape.Arrow2D(rightThruster.position, rightThruster.up * moveInputs.Right));
-#endif
         }
 
-        private Quaternion Turn(float deltaTime)
+#region Locomotion
+        private Quaternion FindDirection(float deltaTime)
         {
+            // determine desired yaw
             float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
             desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
 
+            // move towards desired yaw
             yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
             if (Mathf.Abs(desiredYaw - yaw) < 0.1)
                 yaw = desiredYaw;
 
-            return Quaternion.Euler(transform.forward * yaw);
+            return Quaternion.Euler(0, 0, yaw);
         }
 
-        private Vector3 Move(float deltaTime)
+        private Vector3 FindVelocity(float deltaTime)
         {
+            // determine desired thrust
             float manualThrust = (moveInputs.Left + moveInputs.Right) * stats.ThrusterForce;
             desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
 
+            // move towards desired thrust
             totalThrust = totalThrust.ExpDecay(desiredThrust, stats.Acceleration, deltaTime);
             if (Mathf.Abs(desiredThrust - totalThrust) < 0.1)
                 totalThrust = desiredThrust;
 
-            // apply movement
-            var localMovement = new Vector3(0, totalThrust * deltaTime, 0);
-            Vector3 desiredPosition = transform.position + transform.TransformDirection(localMovement);
+            // apply forward movement
+            var localVelocity = new Vector3(0, totalThrust, 0);
+            return shipRotation * localVelocity;
+        }
 
-            HandleDash(deltaTime);
+        private Vector3 FindNextPosition(float deltaTime)
+        {
+            // determine final position for this frame
+            Vector3 desiredPosition = transform.position + (shipVelocity * deltaTime);
+
+            // incorporate dashing
+            FindDashVelocity(deltaTime);
             desiredPosition.x += dashVelocity * deltaTime;
 
-            // confine to level bounds
+            // confine ship to level bounds
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, levelBounds.Left, levelBounds.Right);
 
             return desiredPosition;
         }
 
-        private void HandleDash(float deltaTime)
+        private void FindDashVelocity(float deltaTime)
         {
             if (Mathf.Abs(dashVelocity) > 0)
             {
@@ -115,6 +132,7 @@ namespace FK.Spaceship.Gameplay
                     dashVelocity = dashDirection * stats.DashForce;
             }
         }
+#endregion
 
         private void UpdateVisuals()
         {
@@ -132,5 +150,14 @@ namespace FK.Spaceship.Gameplay
         void IPlayerActions.OnAttack(InputContext context) => Log.Info("[Input] Attack");
         void IPlayerActions.OnPrevious(InputContext context) => Log.Info("[Input] Previous");
         void IPlayerActions.OnNext(InputContext context) => Log.Info("[Input] Next");
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Handles.color = Color.yellow;
+            Handles.DrawSolidDisc(leftThruster.position, Vector3.forward, moveInputs.Left * 0.1f);
+            Handles.DrawSolidDisc(rightThruster.position, Vector3.forward, moveInputs.Right * 0.1f);
+        }
+#endif
     }
 }
