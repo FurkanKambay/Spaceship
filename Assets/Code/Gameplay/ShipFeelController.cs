@@ -66,9 +66,12 @@ namespace FK.Spaceship.Gameplay
             cameraShake.AddTrauma(1);
 
             // Rumble
-            rumbleLowFrequency = maxThrustRumbleLow;
-            rumbleHighFrequency = maxThrustRumbleHigh;
-            UpdateRumble();
+            if (Gamepad.current?.IsActuated() ?? false)
+            {
+                rumbleLowFrequency = maxThrustRumbleLow;
+                rumbleHighFrequency = maxThrustRumbleHigh;
+                UpdateRumble();
+            }
         }
 
         private void DeactivateMaxThrustEffects()
@@ -79,12 +82,8 @@ namespace FK.Spaceship.Gameplay
 #endregion
 
 #region Gamepad Rumble
-        private void UpdateRumble()
-        {
-            Gamepad gamepad = Gamepad.current;
-            if (gamepad != null && gamepad.IsActuated())
-                gamepad.SetMotorSpeeds(rumbleLowFrequency, rumbleHighFrequency);
-        }
+        private void UpdateRumble() =>
+            Gamepad.current?.SetMotorSpeeds(rumbleLowFrequency, rumbleHighFrequency);
 
         private void StopRumble()
         {
