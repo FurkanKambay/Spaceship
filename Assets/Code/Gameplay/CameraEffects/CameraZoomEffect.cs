@@ -1,30 +1,27 @@
 using System;
 using UnityEngine;
 
-namespace FK.Spaceship.Gameplay
+namespace FK.Spaceship.Gameplay.CameraEffects
 {
     [Serializable]
     public class CameraZoomEffect : ICameraEffect
     {
-        [SerializeField] private Camera camera;
-        [SerializeField, Range(0, 5)] private float zoom = 1f;
+        [SerializeField, Range(0, 5)] private float zoom;
 
-        [Header("Config - Zoom")]
-        [SerializeField, Range(0, 5)] private float zoomWhenSlow;
-        [SerializeField, Range(0, 5)] private float zoomWhenFast;
-
-        private float initialCameraSize;
+        private Camera camera;
         private ShipController ship;
+        private float initialCameraSize;
+        private float zoomWhenSlow;
+        private float zoomWhenFast;
 
         public CameraZoomEffect(Camera camera, ShipController ship, float zoomWhenSlow, float zoomWhenFast)
         {
             this.camera = camera ? camera : throw new ArgumentNullException(nameof(camera));
             this.ship = ship ? ship : throw new ArgumentNullException(nameof(ship));
             this.initialCameraSize = camera.orthographicSize;
-            this.zoom = 1f;
-
             this.zoomWhenSlow = zoomWhenSlow;
             this.zoomWhenFast = zoomWhenFast;
+            this.zoom = 1f;
         }
 
         public bool Tick()

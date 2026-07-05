@@ -10,7 +10,6 @@ namespace FK.Spaceship.Gameplay
     {
         [Header("References - Scene")]
         [SerializeField] private InputService inputService;
-        [SerializeField] private CameraController cameraController;
 
         [Header("Config")]
         [SerializeField] private ShipController shipPrefab;
@@ -22,7 +21,6 @@ namespace FK.Spaceship.Gameplay
         private void Awake()
         {
             Assert.IsNotNull(inputService);
-            Assert.IsNotNull(cameraController);
 
             if (!ship)
             {
@@ -39,7 +37,6 @@ namespace FK.Spaceship.Gameplay
                 throw new UnassignedReferenceException(nameof(ship));
 
             inputService.Controls.Player.SetCallbacks(ship);
-            cameraController.Inject(ship);
 
             ship.SetLevel(levelBounds);
         }

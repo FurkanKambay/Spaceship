@@ -1,6 +1,8 @@
 using FK.Common;
+using FK.Spaceship.Gameplay.CameraEffects;
 using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using Vertx.Attributes;
 
@@ -11,6 +13,14 @@ namespace FK.Spaceship.Gameplay
         [Header("References")]
         [SerializeField] private ShipController ship;
 
+        [Header("Config - Follow")]
+        [SerializeField] private Vector3 cameraFollowOffset;
+        [SerializeField] private Vector2 cameraFollowDecay;
+
+        [Header("Config - Zoom")]
+        [SerializeField, Range(0, 5)] private float zoomWhenSlow = 1f;
+        [SerializeField, Range(0, 5)] private float zoomWhenFast = 1.5f;
+
         [Header("Config - Max Thrust")]
         [SerializeField] private CameraShakeProfileAsset cameraShakeAtMaxThrust;
         [SerializeField, Min(0)] private float rumbleDelay;
@@ -20,17 +30,27 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private CameraShakeProfileAsset collisionShakeProfile;
 
         [Header("Debug")]
-        [SerializeField, ReadOnlyField] private CameraShakeEffect cameraShake;
         [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleLowFrequency;
         [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleHighFrequency;
 
-        private Camera camera;
+        [Header("Debug - Camera Effects")]
+        [SerializeField, ReadOnlyField] private Camera camera;
+        [SerializeField, ReadOnlyField] private CameraFollowEffect camFollow;
+        [SerializeField, ReadOnlyField] private CameraZoomEffect camZoom;
+        [SerializeField, ReadOnlyField] private CameraShakeEffect camShake;
+
         private float fullThrustTimer;
 
         private void Awake()
         {
             camera = Camera.main;
-            cameraShake = new CameraShakeEffect(camera, cameraShakeAtMaxThrust);
+            Assert.IsNotNull(camera);
+
+            Transform cameraPivot = camera.transform.parent;
+
+            camFollow = new CameraFollowEffect(cameraPivot, ship.transform, cameraFollowOffset, cameraFollowDecay);
+            camZoom = new CameraZoomEffect(camera, ship, zoomWhenSlow, zoomWhenFast);
+            camShake = new CameraShakeEffect(camera, cameraShakeAtMaxThrust);
         }
 
         private void OnDisable()
@@ -38,10 +58,13 @@ namespace FK.Spaceship.Gameplay
             InputSystem.ResetHaptics();
         }
 
-        private void Update()
+        private void LateUpdate()
         {
-            cameraShake?.Tick();
             CheckForMaxThrust();
+
+            camFollow?.Tick();
+            camZoom?.Tick();
+            camShake?.Tick();
         }
 
 #region Max Thrust
@@ -67,7 +90,7 @@ namespace FK.Spaceship.Gameplay
         private void ActivateMaxThrustEffects()
         {
             // Camera Shake
-            cameraShake?.AddTrauma(1);
+            camShake?.AddTrauma(1);
 
             // Rumble
             if (Gamepad.current?.IsActuated() ?? false)
@@ -80,7 +103,7 @@ namespace FK.Spaceship.Gameplay
 
         private void DeactivateMaxThrustEffects()
         {
-            cameraShake?.Stop();
+            camShake?.Stop();
             StopRumble();
         }
 #endregion

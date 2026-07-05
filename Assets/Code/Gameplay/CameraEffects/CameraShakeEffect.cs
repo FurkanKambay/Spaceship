@@ -3,23 +3,16 @@ using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace FK.Spaceship.Gameplay
+namespace FK.Spaceship.Gameplay.CameraEffects
 {
-    public interface ICameraEffect
-    {
-        public bool Tick();
-        public void Stop();
-        public void Cleanup();
-    }
-
     // https://github.com/IronWarrior/UnityCameraShake
     [Serializable]
     public class CameraShakeEffect : ICameraEffect
     {
-        [SerializeField] private Camera camera;
         [SerializeField] private CameraShakeProfileAsset profile;
         [SerializeField, Range(0, 1)] private float trauma;
 
+        private Camera camera;
         private float seed;
 
         public CameraShakeEffect(Camera camera, CameraShakeProfileAsset profile)
