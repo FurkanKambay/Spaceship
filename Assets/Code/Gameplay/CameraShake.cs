@@ -10,7 +10,13 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private CameraShakeProfileAsset profile;
         [SerializeField, Range(0, 1)] private float trauma;
 
+        private Camera camera;
         private float seed;
+
+        private void Awake()
+        {
+            camera = Camera.main;
+        }
 
         private void OnEnable() => seed = Random.value;
         private void OnDisable() => KillShake();
@@ -31,7 +37,7 @@ namespace FK.Spaceship.Gameplay
                     z: (Mathf.PerlinNoise(seed + 2, perlinY) * 2) - 1
                 );
 
-                transform.localPosition = shake * Vector3.Scale(profile.MaxShakeOffset, noise);
+                camera.transform.localPosition = shake * Vector3.Scale(profile.MaxShakeOffset, noise);
             }
 
             if (profile.MaxShakeAngles != Vector3.zero)
@@ -42,7 +48,7 @@ namespace FK.Spaceship.Gameplay
                     z: (Mathf.PerlinNoise(seed + 5, perlinY) * 2) - 1
                 );
 
-                transform.localRotation = Quaternion.Euler(shake * Vector3.Scale(profile.MaxShakeAngles, noise));
+                camera.transform.localRotation = Quaternion.Euler(shake * Vector3.Scale(profile.MaxShakeAngles, noise));
             }
 
             if (trauma > 0 && profile.RecoverySpeed > 0)
@@ -58,8 +64,8 @@ namespace FK.Spaceship.Gameplay
         public void KillShake()
         {
             trauma = 0;
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
+            camera.transform.localPosition = Vector3.zero;
+            camera.transform.localRotation = Quaternion.identity;
         }
     }
 }
