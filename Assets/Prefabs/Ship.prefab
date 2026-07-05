@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 8732373399844248302}
   - component: {fileID: 7807243787640348020}
   - component: {fileID: 7421527994673617340}
+  - component: {fileID: 1034211701093909906}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -400,6 +401,23 @@ MonoBehaviour:
   cameraShake: {fileID: 0}
   rumbleLowFrequency: 0
   rumbleHighFrequency: 0
+--- !u!114 &1034211701093909906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6004854799827479174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0e1063ed224bce8a24fc98eb7885aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Visual.ShipVisualizer
+  ship: {fileID: 7807243787640348020}
+  leftThruster: {fileID: 5927910307645285999}
+  rightThruster: {fileID: 1384100989740036576}
+  slowFlame: {fileID: 21300000, guid: f2044e28e5dda2a439863839cd35af14, type: 3}
+  fastFlame: {fileID: 21300000, guid: 609521acad7b4464484b9995f86c15c0, type: 3}
 --- !u!1 &6186768876511476940
 GameObject:
   m_ObjectHideFlags: 0

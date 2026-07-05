@@ -38,6 +38,7 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug - Level")]
         [SerializeField] private Duo levelBounds;
 
+        public Duo MoveInputs => moveInputs;
         public float DesiredThrust => desiredThrust;
         public float TotalThrust => totalThrust;
         public float MaxTotalThrust => stats.MaxTotalThrust;
@@ -64,11 +65,6 @@ namespace FK.Spaceship.Gameplay
 
             D.raw(new Shape.Arrow2D(transform.position, shipVelocity), Color.green);
             D.raw(new Shape.Arrow2D(transform.position, desiredYaw + 90), Color.softYellow);
-        }
-
-        private void LateUpdate()
-        {
-            UpdateVisuals();
         }
 
 #region Locomotion
@@ -133,13 +129,6 @@ namespace FK.Spaceship.Gameplay
             }
         }
 #endregion
-
-        private void UpdateVisuals()
-        {
-            // TODO: move visualization out
-            leftThruster.gameObject.SetActive(moveInputs.Right > 0.1f);
-            rightThruster.gameObject.SetActive(moveInputs.Left > 0.1f);
-        }
 
         void IPlayerActions.OnMoveLeft(InputContext context) => moveInputs.Left = context.ReadValue<float>();
         void IPlayerActions.OnMoveRight(InputContext context) => moveInputs.Right = context.ReadValue<float>();
