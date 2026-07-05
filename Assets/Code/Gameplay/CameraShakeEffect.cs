@@ -24,8 +24,8 @@ namespace FK.Spaceship.Gameplay
 
         public CameraShakeEffect(Camera camera, CameraShakeProfileAsset profile)
         {
-            this.camera = camera ?? throw new ArgumentNullException(nameof(camera));
-            this.profile = profile ?? throw new ArgumentNullException(nameof(profile));
+            this.camera = camera ? camera : throw new ArgumentNullException(nameof(camera));
+            this.profile = profile ? profile : throw new ArgumentNullException(nameof(profile));
             this.seed = Random.value;
             this.trauma = 0;
         }

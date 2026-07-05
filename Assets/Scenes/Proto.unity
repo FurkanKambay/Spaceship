@@ -350,7 +350,11 @@ MonoBehaviour:
   zoomWhenFast: 1.2
   ship: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
-  zoom: 1
+  cameraZoomEffect:
+    camera: {fileID: 0}
+    zoom: 1
+    zoomWhenSlow: 0
+    zoomWhenFast: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

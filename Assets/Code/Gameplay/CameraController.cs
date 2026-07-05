@@ -18,10 +18,9 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug")]
         [SerializeField, ReadOnlyField] private ShipController ship;
         [SerializeField, ReadOnlyField] private Vector3 destination;
-        [SerializeField, ReadOnlyField, Range(0, 5)] private float zoom = 1f;
+        [SerializeField, ReadOnlyField] private CameraZoomEffect cameraZoomEffect;
 
         private Camera camera;
-        private float initialCameraSize;
 
         internal void Inject(ShipController shipController) =>
             ship = shipController;
@@ -29,7 +28,7 @@ namespace FK.Spaceship.Gameplay
         private void Awake()
         {
             camera = Camera.main;
-            initialCameraSize = camera!.orthographicSize;
+            cameraZoomEffect = new CameraZoomEffect(camera, ship, zoomWhenSlow, zoomWhenFast);
         }
 
         private void LateUpdate()
@@ -39,8 +38,7 @@ namespace FK.Spaceship.Gameplay
 
             destination = ship.transform.position + offset.WithZ(offsetZ);
             PanTowardsDestinationWithDecay(Time.deltaTime);
-
-            AdjustZoom();
+            cameraZoomEffect?.Tick();
         }
 
         private void PanTowardsDestinationWithDecay(float deltaTime)
@@ -54,17 +52,6 @@ namespace FK.Spaceship.Gameplay
             );
 
             transform.position = position;
-        }
-
-        private void AdjustZoom()
-        {
-            float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
-            zoom = Mathf.Lerp(zoomWhenSlow, zoomWhenFast, t);
-
-            camera.orthographicSize = initialCameraSize * zoom;
-            return;
-
-            static float easeInExpo(float x) => x == 0 ? 0 : Mathf.Pow(2, (10 * x) - 10);
         }
     }
 }
