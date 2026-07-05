@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Vertx.Attributes;
 using Vertx.Debugging;
-using IPlayerActions = FK.Spaceship.Controls.IPlayerActions;
 using InputContext = UnityEngine.InputSystem.InputAction.CallbackContext;
+using IPlayerActions = FK.Spaceship.Controls.IPlayerActions;
 
 namespace FK.Spaceship.Gameplay
 {
