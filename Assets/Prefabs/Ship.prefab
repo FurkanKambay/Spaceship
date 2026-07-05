@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 3844537484314177719}
   - component: {fileID: 8732373399844248302}
   - component: {fileID: 7807243787640348020}
+  - component: {fileID: 7421527994673617340}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -378,6 +379,27 @@ MonoBehaviour:
   levelBounds:
     Left: 0
     Right: 0
+--- !u!114 &7421527994673617340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6004854799827479174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537116acb80246e6b3058679edacc727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.ShipFeelController
+  ship: {fileID: 7807243787640348020}
+  maxThrustCameraShake: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
+  maxThrustDuration: 2
+  maxThrustRumbleLow: 0.5
+  maxThrustRumbleHigh: 0
+  collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}
+  cameraShake: {fileID: 0}
+  rumbleLowFrequency: 0
+  rumbleHighFrequency: 0
 --- !u!1 &6186768876511476940
 GameObject:
   m_ObjectHideFlags: 0

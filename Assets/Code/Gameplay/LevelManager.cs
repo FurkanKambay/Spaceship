@@ -2,21 +2,24 @@ using FK.Common;
 using FK.Spaceship.Input;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay
 {
     public class LevelManager : MonoBehaviour
     {
-        [Header("Scene References")]
+        [Header("References - Scene")]
         [SerializeField] private InputService inputService;
         [SerializeField] private CameraFollow cameraFollow;
+        [SerializeField] private CameraShake cameraShake;
 
         [Header("Config")]
         [SerializeField] private ShipController shipPrefab;
         [SerializeField] private Duo levelBounds;
 
         [Header("State")]
-        [SerializeField] private ShipController ship;
+        [SerializeField, ReadOnlyField] private ShipController ship;
+        [SerializeField, ReadOnlyField] private ShipFeelController shipFeel;
 
         private void Awake()
         {
@@ -27,6 +30,8 @@ namespace FK.Spaceship.Gameplay
             {
                 ship = Instantiate(shipPrefab);
                 ship.name = "🚀 Player Ship";
+
+                shipFeel = ship.GetComponent<ShipFeelController>();
             }
 
             InjectDependencies();
@@ -38,8 +43,10 @@ namespace FK.Spaceship.Gameplay
                 throw new UnassignedReferenceException(nameof(ship));
 
             inputService.Controls.Player.SetCallbacks(ship);
-            ship.SetLevel(levelBounds);
             cameraFollow.InjectTarget(ship.transform);
+
+            ship.SetLevel(levelBounds);
+            shipFeel.Inject(cameraShake);
         }
 
 #if UNITY_EDITOR

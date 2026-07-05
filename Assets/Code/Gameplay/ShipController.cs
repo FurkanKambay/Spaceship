@@ -37,6 +37,12 @@ namespace FK.Spaceship.Gameplay
         [Header("Debug - Level")]
         [SerializeField] private Duo levelBounds;
 
+        public float DesiredThrust => desiredThrust;
+        public float TotalThrust => totalThrust;
+        public float MaxTotalThrust => stats.MaxTotalThrust;
+        public float DesiredYaw => desiredYaw;
+        public float Yaw => yaw;
+
         internal void SetLevel(Duo bounds) => levelBounds = bounds;
 
         private void Awake()
