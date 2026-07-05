@@ -1,31 +1,39 @@
+using System;
 using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace FK.Spaceship.Gameplay
 {
-    // https://github.com/IronWarrior/UnityCameraShake
-    public class CameraShake : MonoBehaviour
+    public interface ICameraEffect
     {
-        [Header("State")]
+        public bool Tick();
+        public void Stop();
+        public void Cleanup();
+    }
+
+    // https://github.com/IronWarrior/UnityCameraShake
+    [Serializable]
+    public class CameraShakeEffect : ICameraEffect
+    {
+        [SerializeField] private Camera camera;
         [SerializeField] private CameraShakeProfileAsset profile;
         [SerializeField, Range(0, 1)] private float trauma;
 
-        private Camera camera;
         private float seed;
 
-        private void Awake()
+        public CameraShakeEffect(Camera camera, CameraShakeProfileAsset profile)
         {
-            camera = Camera.main;
+            this.camera = camera ?? throw new ArgumentNullException(nameof(camera));
+            this.profile = profile ?? throw new ArgumentNullException(nameof(profile));
+            this.seed = Random.value;
+            this.trauma = 0;
         }
 
-        private void OnEnable() => seed = Random.value;
-        private void OnDisable() => KillShake();
+        public void AddTrauma(float value) => trauma = Mathf.Clamp01(trauma + value);
 
-        private void Update()
+        public bool Tick()
         {
-            if (!profile)
-                return;
-
             float shake = Mathf.Pow(trauma, profile.TraumaExponent);
             float perlinY = Time.time * profile.Frequency;
 
@@ -53,17 +61,18 @@ namespace FK.Spaceship.Gameplay
 
             if (trauma > 0 && profile.RecoverySpeed > 0)
                 trauma = Mathf.Clamp01(trauma - (profile.RecoverySpeed * Time.deltaTime));
+
+            return trauma == 0;
         }
 
-        public void SetProfile(CameraShakeProfileAsset profileAsset) =>
-            this.profile = profileAsset;
-
-        public void AddTrauma(float value) => trauma = Mathf.Clamp01(trauma + value);
-        public void ClearTrauma() => trauma = 0;
-
-        public void KillShake()
+        public void Stop()
         {
             trauma = 0;
+        }
+
+        public void Cleanup()
+        {
+            Stop();
             camera.transform.localPosition = Vector3.zero;
             camera.transform.localRotation = Quaternion.identity;
         }

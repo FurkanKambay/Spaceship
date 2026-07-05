@@ -20,14 +20,18 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private CameraShakeProfileAsset collisionShakeProfile;
 
         [Header("Debug")]
-        [SerializeField, ReadOnlyField] private CameraShake cameraShake;
+        [SerializeField, ReadOnlyField] private CameraShakeEffect cameraShake;
         [SerializeField, Range(0, 1), ReadOnlyField] private float rumbleLowFrequency;
         [SerializeField, Range(0, 1), ReadOnlyField] private float rumbleHighFrequency;
 
+        private Camera camera;
         private float fullThrustTimer;
 
-        internal void Inject(CameraShake newCameraShake) =>
-            cameraShake = newCameraShake;
+        private void Awake()
+        {
+            camera = Camera.main;
+            cameraShake = new CameraShakeEffect(camera, maxThrustCameraShake);
+        }
 
         private void OnDisable()
         {
@@ -36,13 +40,14 @@ namespace FK.Spaceship.Gameplay
 
         private void Update()
         {
+            cameraShake?.Tick();
             CheckForMaxThrust();
         }
 
 #region Max Thrust
         private void CheckForMaxThrust()
         {
-            if (!ship || !cameraShake)
+            if (!ship)
                 return;
 
             if (ship.TotalThrust < ship.MaxTotalThrust)
@@ -62,8 +67,7 @@ namespace FK.Spaceship.Gameplay
         private void ActivateMaxThrustEffects()
         {
             // Camera Shake
-            cameraShake.SetProfile(maxThrustCameraShake);
-            cameraShake.AddTrauma(1);
+            cameraShake?.AddTrauma(1);
 
             // Rumble
             if (Gamepad.current?.IsActuated() ?? false)
@@ -76,7 +80,7 @@ namespace FK.Spaceship.Gameplay
 
         private void DeactivateMaxThrustEffects()
         {
-            cameraShake.ClearTrauma();
+            cameraShake?.Stop();
             StopRumble();
         }
 #endregion

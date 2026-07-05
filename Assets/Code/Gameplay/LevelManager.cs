@@ -11,7 +11,6 @@ namespace FK.Spaceship.Gameplay
         [Header("References - Scene")]
         [SerializeField] private InputService inputService;
         [SerializeField] private CameraFollow cameraFollow;
-        [SerializeField] private CameraShake cameraShake;
         [SerializeField] private CameraZoomController cameraZoom;
 
         [Header("Config")]
@@ -20,7 +19,6 @@ namespace FK.Spaceship.Gameplay
 
         [Header("State")]
         [SerializeField, ReadOnlyField] private ShipController ship;
-        [SerializeField, ReadOnlyField] private ShipFeelController shipFeel;
 
         private void Awake()
         {
@@ -31,8 +29,6 @@ namespace FK.Spaceship.Gameplay
             {
                 ship = Instantiate(shipPrefab);
                 ship.name = "🚀 Player Ship";
-
-                shipFeel = ship.GetComponent<ShipFeelController>();
             }
 
             InjectDependencies();
@@ -48,7 +44,6 @@ namespace FK.Spaceship.Gameplay
             cameraZoom.Inject(ship);
 
             ship.SetLevel(levelBounds);
-            shipFeel.Inject(cameraShake);
         }
 
 #if UNITY_EDITOR

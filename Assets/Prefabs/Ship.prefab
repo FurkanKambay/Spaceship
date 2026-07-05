@@ -398,7 +398,10 @@ MonoBehaviour:
   maxThrustRumbleLow: 0.5
   maxThrustRumbleHigh: 0
   collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}
-  cameraShake: {fileID: 0}
+  cameraShake:
+    camera: {fileID: 0}
+    profile: {fileID: 0}
+    trauma: 0
   rumbleLowFrequency: 0
   rumbleHighFrequency: 0
 --- !u!114 &1034211701093909906
