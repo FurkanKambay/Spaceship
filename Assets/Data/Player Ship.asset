@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce335fbd4bb9244fbf9ee35b6c8aa1c, type: 3}
   m_Name: Player Ship
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipStats
-  baseThrust: 2
+  baseThrust: 0
   thrusterForce: 10
   acceleration: 6
   maxTotalThrust: 20
+  turnForce: 35
   turnSpeed: 8
-  yawLimits: {x: -50, y: 50}
   dashForce: 100
   dashDecay: 20

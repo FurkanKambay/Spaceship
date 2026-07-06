@@ -63,8 +63,8 @@ namespace FK.Spaceship.Gameplay
             ShipVelocity = FindVelocity(deltaTime);
             transform.position = FindNextPosition(deltaTime);
 
-            D.raw(new Shape.Arrow2D(transform.position, ShipVelocity), Color.green);
-            D.raw(new Shape.Arrow2D(transform.position, desiredYaw + 90), Color.softYellow);
+            D.raw(new Shape.Arrow(transform.position, ShipVelocity), Color.green);
+            D.raw(new Shape.Arrow(transform.position, ShipRotation), Color.softYellow);
         }
 
 #region Locomotion
@@ -72,14 +72,14 @@ namespace FK.Spaceship.Gameplay
         {
             // determine desired yaw
             float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
-            desiredYaw = turn.Remap(-1, 1).To(stats.YawLimits.x, stats.YawLimits.y);
+            desiredYaw = yaw + (turn * stats.TurnForce);
 
             // move towards desired yaw
             yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
             if (Mathf.Abs(desiredYaw - yaw) < 0.1)
                 yaw = desiredYaw;
 
-            return Quaternion.Euler(0, 0, yaw);
+            return Quaternion.Euler(0, -yaw, 0);
         }
 
         private Vector3 FindVelocity(float deltaTime)
@@ -94,7 +94,7 @@ namespace FK.Spaceship.Gameplay
                 totalThrust = desiredThrust;
 
             // apply forward movement
-            var localVelocity = new Vector3(0, totalThrust, 0);
+            Vector3 localVelocity = Vector3.forward * totalThrust;
             return ShipRotation * localVelocity;
         }
 

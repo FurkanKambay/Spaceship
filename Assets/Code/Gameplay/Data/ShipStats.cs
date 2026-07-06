@@ -1,5 +1,4 @@
 using UnityEngine;
-using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay.Data
 {
@@ -13,8 +12,8 @@ namespace FK.Spaceship.Gameplay.Data
         [SerializeField, Min(0)] private float maxTotalThrust = 20f;
 
         [Header("Turning")]
+        [SerializeField, Min(0)] private float turnForce = 5f;
         [SerializeField, Min(0)] private float turnSpeed = 20f;
-        [SerializeField, MinMax(-180, 180)] private Vector2 yawLimits = new(-45, 45);
 
         [Header("Dash")]
         [SerializeField, Min(0)] private float dashForce = 20f;
@@ -25,7 +24,7 @@ namespace FK.Spaceship.Gameplay.Data
         public float Acceleration => acceleration;
         public float MaxTotalThrust => maxTotalThrust;
 
-        public Vector2 YawLimits => yawLimits;
+        public float TurnForce => turnForce;
         public float TurnSpeed => turnSpeed;
 
         public float DashForce => dashForce;

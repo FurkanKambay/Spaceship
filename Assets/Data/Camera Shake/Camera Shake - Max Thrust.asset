@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Camera Shake - Max Thrust
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.CameraShakeProfileAsset
   frequency: 25
-  maxShakeOffset: {x: 0.2, y: 0.2, z: 0}
+  maxShakeOffset: {x: 0.1, y: 0.1, z: 0.1}
   maxShakeAngles: {x: 0, y: 0, z: 0}
   traumaExponent: 1
   recoverySpeed: 0
