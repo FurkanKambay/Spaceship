@@ -52,7 +52,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             camera.orthographicSize = initialCameraSize * zoom;
 
             var angles = Vector3.Lerp(Vector3.zero, zoomConfig.fastAngles, t);
-            camera.transform.eulerAngles = angles;
+            camera.transform.localEulerAngles = angles;
 
             return false; // sustain the effect indefinitely
 
