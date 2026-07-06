@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
     [Serializable]
-    public class CameraFollowEffect : ICameraEffect
+    public struct CameraFollowEffect : ICameraEffect
     {
         [SerializeField] private Transform target;
 
@@ -20,10 +20,14 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             this.target = target ? target : throw new ArgumentNullException(nameof(target));
             this.offset = constantOffset;
             this.followDecay = followDecay;
+            this.destination = target.position + constantOffset;
         }
 
         public bool Tick()
         {
+            if (!target)
+                return true;
+
             destination = target.position + offset;
             Vector3 current = cameraPivot.transform.position;
 

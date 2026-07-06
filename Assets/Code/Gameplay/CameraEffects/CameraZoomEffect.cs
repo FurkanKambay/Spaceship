@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
     [Serializable]
-    public class CameraZoomEffect : ICameraEffect
+    public struct CameraZoomEffect : ICameraEffect
     {
         [Serializable]
         public struct ZoomConfig
@@ -36,6 +36,9 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
         public bool Tick()
         {
+            if (!camera)
+                return true;
+
             float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
             zoom = Mathf.Lerp(zoomConfig.slowZoom, zoomConfig.fastZoom, t);
 

@@ -7,7 +7,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 {
     // https://github.com/IronWarrior/UnityCameraShake
     [Serializable]
-    public class CameraShakeEffect : ICameraEffect
+    public struct CameraShakeEffect : ICameraEffect
     {
         [SerializeField] private CameraShakeProfileAsset profile;
         [SerializeField, Range(0, 1)] private float trauma;
@@ -27,6 +27,9 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
         public bool Tick()
         {
+            if (!camera)
+                return true;
+
             float shake = Mathf.Pow(trauma, profile.TraumaExponent);
             float perlinY = Time.time * profile.Frequency;
 

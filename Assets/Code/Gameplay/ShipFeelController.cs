@@ -61,9 +61,9 @@ namespace FK.Spaceship.Gameplay
         {
             CheckForMaxThrust();
 
-            camFollow?.Tick();
-            camZoom?.Tick();
-            camShake?.Tick();
+            camFollow.Tick();
+            camZoom.Tick();
+            camShake.Tick();
         }
 
 #region Max Thrust
@@ -89,7 +89,7 @@ namespace FK.Spaceship.Gameplay
         private void ActivateMaxThrustEffects()
         {
             // Camera Shake
-            camShake?.AddTrauma(1);
+            camShake.AddTrauma(1);
 
             // Rumble
             if (Gamepad.current?.IsActuated() ?? false)
@@ -102,7 +102,7 @@ namespace FK.Spaceship.Gameplay
 
         private void DeactivateMaxThrustEffects()
         {
-            camShake?.Stop();
+            camShake.Stop();
             StopRumble();
         }
 #endregion
