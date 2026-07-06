@@ -45,7 +45,7 @@ namespace FK.Spaceship.Gameplay
         public float DesiredYaw => desiredYaw;
         public float Yaw => yaw;
 
-        public Vector2 ShipVelocity { get; private set; }
+        public Vector3 ShipVelocity { get; private set; }
         public Quaternion ShipRotation { get; private set; }
 
         internal void SetLevel(Duo bounds) => levelBounds = bounds;
@@ -82,7 +82,7 @@ namespace FK.Spaceship.Gameplay
             return Quaternion.Euler(0, 0, yaw);
         }
 
-        private Vector2 FindVelocity(float deltaTime)
+        private Vector3 FindVelocity(float deltaTime)
         {
             // determine desired thrust
             float manualThrust = (moveInputs.Left + moveInputs.Right) * stats.ThrusterForce;
@@ -94,14 +94,14 @@ namespace FK.Spaceship.Gameplay
                 totalThrust = desiredThrust;
 
             // apply forward movement
-            var localVelocity = new Vector3(0, totalThrust);
+            var localVelocity = new Vector3(0, totalThrust, 0);
             return ShipRotation * localVelocity;
         }
 
-        private Vector2 FindNextPosition(float deltaTime)
+        private Vector3 FindNextPosition(float deltaTime)
         {
             // determine final position for this frame
-            Vector2 desiredPosition = (Vector2)transform.position + (ShipVelocity * deltaTime);
+            Vector3 desiredPosition = transform.position + (ShipVelocity * deltaTime);
 
             // incorporate dashing
             FindDashVelocity(deltaTime);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Ship Feel
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipFeelAsset
   cameraFollowOffset: {x: 0, y: 8, z: -10}
-  cameraFollowDecay: {x: 0, y: 20}
+  cameraFollowDecay: {x: 0, y: 20, z: 0}
   cameraZoomConfig:
     slowZoom: 1
     fastZoom: 1.2

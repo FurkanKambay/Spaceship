@@ -7,7 +7,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
     public interface ICameraFollowConfigProvider
     {
         ref readonly Vector3 CameraFollowOffset { get; }
-        ref readonly Vector2 CameraFollowDecay { get; }
+        ref readonly Vector3 CameraFollowDecay { get; }
     }
 
     [Serializable]
@@ -40,7 +40,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             cameraPivot.transform.position = new Vector3(
                 x: current.x.ExpDecay(destination.x, config.CameraFollowDecay.x, Time.deltaTime),
                 y: current.y.ExpDecay(destination.y, config.CameraFollowDecay.y, Time.deltaTime),
-                z: destination.z
+                z: current.z.ExpDecay(destination.z, config.CameraFollowDecay.z, Time.deltaTime)
             );
 
             // sustain effect indefinitely
