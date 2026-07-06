@@ -1,4 +1,3 @@
-using FK.Common;
 using FK.Spaceship.Gameplay.CameraEffects;
 using FK.Spaceship.Gameplay.Data;
 using UnityEngine;
@@ -13,22 +12,10 @@ namespace FK.Spaceship.Gameplay
         [Header("References")]
         [SerializeField] private ShipController ship;
 
-        [Header("Config - Follow")]
-        [SerializeField] private Vector3 cameraFollowOffset;
-        [SerializeField] private Vector2 cameraFollowDecay;
+        [Header("Config")]
+        [SerializeField] private ShipFeelAsset shipFeel;
 
-        [Header("Config - Zoom")]
-        [SerializeField] private CameraZoomEffect.ZoomConfig cameraZoomConfig;
-
-        [Header("Config - Max Thrust")]
-        [SerializeField] private CameraShakeProfileAsset cameraShakeAtMaxThrust;
-        [SerializeField, Min(0)] private float rumbleDelay;
-        [SerializeField] private RumbleProfile rumbleAtMaxThrust;
-
-        [Header("Config - Collision")]
-        [SerializeField] private CameraShakeProfileAsset collisionShakeProfile;
-
-        [Header("Debug")]
+        [Header("Debug - Gamepad Rumble")]
         [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleLowFrequency;
         [SerializeField, ReadOnlyField, Range(0, 1)] private float rumbleHighFrequency;
 
@@ -47,9 +34,9 @@ namespace FK.Spaceship.Gameplay
 
             Transform cameraPivot = camera.transform.parent;
 
-            camFollow = new CameraFollowEffect(cameraPivot, ship.transform, cameraFollowOffset, cameraFollowDecay);
-            camZoom = new CameraZoomEffect(camera, ship, cameraZoomConfig);
-            camShake = new CameraShakeEffect(camera, cameraShakeAtMaxThrust);
+            camFollow = new CameraFollowEffect(cameraPivot, ship.transform, shipFeel);
+            camZoom = new CameraZoomEffect(camera, ship, shipFeel);
+            camShake = new CameraShakeEffect(camera, shipFeel.CameraShakeAtMaxThrust);
         }
 
         private void OnDisable()
@@ -82,7 +69,7 @@ namespace FK.Spaceship.Gameplay
             }
 
             fullThrustTimer += Time.deltaTime;
-            if (fullThrustTimer > rumbleDelay)
+            if (fullThrustTimer > shipFeel.RumbleDelay)
                 ActivateMaxThrustEffects();
         }
 
@@ -94,8 +81,8 @@ namespace FK.Spaceship.Gameplay
             // Rumble
             if (Gamepad.current?.IsActuated() ?? false)
             {
-                rumbleLowFrequency = rumbleAtMaxThrust.lowFrequency;
-                rumbleHighFrequency = rumbleAtMaxThrust.highFrequency;
+                rumbleLowFrequency = shipFeel.RumbleAtMaxThrust.lowFrequency;
+                rumbleHighFrequency = shipFeel.RumbleAtMaxThrust.highFrequency;
                 UpdateRumble();
             }
         }

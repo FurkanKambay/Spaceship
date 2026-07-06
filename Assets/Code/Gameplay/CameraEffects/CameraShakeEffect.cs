@@ -13,6 +13,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         [SerializeField, Range(0, 1)] private float trauma;
 
         private Camera camera;
+
         private float seed;
 
         public CameraShakeEffect(Camera camera, CameraShakeProfileAsset profile)

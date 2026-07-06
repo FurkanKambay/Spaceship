@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
+    public interface ICameraZoomConfigProvider
+    {
+        CameraZoomEffect.ZoomConfig CameraZoomConfig { get; }
+    }
+
     [Serializable]
     public struct CameraZoomEffect : ICameraEffect
     {
@@ -18,18 +23,19 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
         private Camera camera;
         private ShipController ship;
-        private ZoomConfig zoomConfig;
+        private ICameraZoomConfigProvider config;
+
         private float initialCameraSize;
 
-        public CameraZoomEffect(Camera camera, ShipController ship, ZoomConfig zoomConfig)
+        public CameraZoomEffect(Camera camera, ShipController ship, ICameraZoomConfigProvider configProvider)
         {
             this.camera = camera ? camera : throw new ArgumentNullException(nameof(camera));
             this.ship = ship ? ship : throw new ArgumentNullException(nameof(ship));
+            this.config = configProvider ?? throw new ArgumentNullException(nameof(configProvider));
 
-            if (zoomConfig.slowZoom == 0 || zoomConfig.fastZoom == 0)
-                throw new ArgumentOutOfRangeException(nameof(zoomConfig));
+            if (config.CameraZoomConfig.slowZoom == 0 || config.CameraZoomConfig.fastZoom == 0)
+                throw new ArgumentOutOfRangeException(nameof(configProvider));
 
-            this.zoomConfig = zoomConfig;
             this.initialCameraSize = camera.orthographicSize;
             this.zoom = 1f;
         }
@@ -38,6 +44,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         {
             if (!camera)
                 return true;
+
+            ZoomConfig zoomConfig = config.CameraZoomConfig;
 
             float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
             zoom = Mathf.Lerp(zoomConfig.slowZoom, zoomConfig.fastZoom, t);

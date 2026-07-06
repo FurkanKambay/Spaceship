@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5392771c42d943949ca826a2b3c25bd3, type: 3}
+  m_Name: Player Ship Feel
+  m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipFeelAsset
+  cameraFollowOffset: {x: 0, y: 8, z: -10}
+  cameraFollowDecay: {x: 0, y: 20}
+  cameraZoomConfig:
+    slowZoom: 1
+    fastZoom: 1.2
+    fastAngles: {x: -20, y: 0, z: 0}
+  cameraShakeAtMaxThrust: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
+  rumbleDelay: 0
+  rumbleAtMaxThrust:
+    lowFrequency: 1
+    highFrequency: 0.5
+  collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}

@@ -393,18 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.ShipFeelController
   ship: {fileID: 7807243787640348020}
-  cameraFollowOffset: {x: 0, y: 8, z: -10}
-  cameraFollowDecay: {x: 0, y: 20}
-  cameraZoomConfig:
-    slowZoom: 1
-    fastZoom: 1.2
-    fastAngles: {x: -20, y: 0, z: 0}
-  cameraShakeAtMaxThrust: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
-  rumbleDelay: 0
-  rumbleAtMaxThrust:
-    lowFrequency: 1
-    highFrequency: 0.5
-  collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}
+  shipFeel: {fileID: 11400000, guid: 3cecd1e8ead1f82489cfdaeaf5881b47, type: 2}
   rumbleLowFrequency: 0
   rumbleHighFrequency: 0
   camera: {fileID: 0}
