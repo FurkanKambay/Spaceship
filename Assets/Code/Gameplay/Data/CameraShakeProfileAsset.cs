@@ -15,8 +15,8 @@ namespace FK.Spaceship.Gameplay.Data
         [SerializeField, Range(0, 10)] private float recoverySpeed = 1.5f;
 
         public float Frequency => frequency;
-        public Vector3 MaxShakeOffset => maxShakeOffset;
-        public Vector3 MaxShakeAngles => maxShakeAngles;
+        public ref readonly Vector3 MaxShakeOffset => ref maxShakeOffset;
+        public ref readonly Vector3 MaxShakeAngles => ref maxShakeAngles;
 
         public float TraumaExponent => traumaExponent;
         public float RecoverySpeed => recoverySpeed;

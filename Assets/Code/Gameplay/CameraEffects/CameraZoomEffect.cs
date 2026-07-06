@@ -5,7 +5,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 {
     public interface ICameraZoomConfigProvider
     {
-        CameraZoomEffect.ZoomConfig CameraZoomConfig { get; }
+        ref readonly CameraZoomEffect.ZoomConfig CameraZoomConfig { get; }
     }
 
     [Serializable]
@@ -45,7 +45,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             if (!camera)
                 return true;
 
-            ZoomConfig zoomConfig = config.CameraZoomConfig;
+            ref readonly ZoomConfig zoomConfig = ref config.CameraZoomConfig;
 
             float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
             zoom = Mathf.Lerp(zoomConfig.slowZoom, zoomConfig.fastZoom, t);

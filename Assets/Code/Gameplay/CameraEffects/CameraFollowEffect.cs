@@ -6,8 +6,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 {
     public interface ICameraFollowConfigProvider
     {
-        Vector3 CameraFollowOffset { get; }
-        Vector2 CameraFollowDecay { get; }
+        ref readonly Vector3 CameraFollowOffset { get; }
+        ref readonly Vector2 CameraFollowDecay { get; }
     }
 
     [Serializable]

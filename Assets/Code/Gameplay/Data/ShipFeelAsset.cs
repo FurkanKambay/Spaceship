@@ -22,15 +22,15 @@ namespace FK.Spaceship.Gameplay.Data
         [Header("Config - Collision")]
         [SerializeField] private CameraShakeProfileAsset collisionShakeProfile;
 
-        public Vector3 CameraFollowOffset => cameraFollowOffset;
-        public Vector2 CameraFollowDecay => cameraFollowDecay;
+        public ref readonly Vector3 CameraFollowOffset => ref cameraFollowOffset;
+        public ref readonly Vector2 CameraFollowDecay => ref cameraFollowDecay;
 
-        public CameraZoomEffect.ZoomConfig CameraZoomConfig => cameraZoomConfig;
+        public ref readonly CameraZoomEffect.ZoomConfig CameraZoomConfig => ref cameraZoomConfig;
 
-        public CameraShakeProfileAsset CameraShakeAtMaxThrust => cameraShakeAtMaxThrust;
-        public float RumbleDelay => rumbleDelay;
-        public RumbleProfile RumbleAtMaxThrust => rumbleAtMaxThrust;
+        public ref readonly CameraShakeProfileAsset CameraShakeAtMaxThrust => ref cameraShakeAtMaxThrust;
+        public ref readonly float RumbleDelay => ref rumbleDelay;
+        public ref readonly RumbleProfile RumbleAtMaxThrust => ref rumbleAtMaxThrust;
 
-        public CameraShakeProfileAsset CollisionShakeProfile => collisionShakeProfile;
+        public ref readonly CameraShakeProfileAsset CollisionShakeProfile => ref collisionShakeProfile;
     }
 }
