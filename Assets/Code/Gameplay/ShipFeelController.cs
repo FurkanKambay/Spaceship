@@ -18,8 +18,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private Vector2 cameraFollowDecay;
 
         [Header("Config - Zoom")]
-        [SerializeField, Range(0, 5)] private float zoomWhenSlow = 1f;
-        [SerializeField, Range(0, 5)] private float zoomWhenFast = 1.5f;
+        [SerializeField] private CameraZoomEffect.ZoomConfig cameraZoomConfig;
 
         [Header("Config - Max Thrust")]
         [SerializeField] private CameraShakeProfileAsset cameraShakeAtMaxThrust;
@@ -49,7 +48,7 @@ namespace FK.Spaceship.Gameplay
             Transform cameraPivot = camera.transform.parent;
 
             camFollow = new CameraFollowEffect(cameraPivot, ship.transform, cameraFollowOffset, cameraFollowDecay);
-            camZoom = new CameraZoomEffect(camera, ship, zoomWhenSlow, zoomWhenFast);
+            camZoom = new CameraZoomEffect(camera, ship, cameraZoomConfig);
             camShake = new CameraShakeEffect(camera, cameraShakeAtMaxThrust);
         }
 
