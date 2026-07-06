@@ -2,7 +2,6 @@ using FK.Common;
 using FK.Spaceship.Input;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay
 {
@@ -16,7 +15,7 @@ namespace FK.Spaceship.Gameplay
         [SerializeField] private Duo levelBounds;
 
         [Header("State")]
-        [SerializeField, ReadOnlyField] private ShipController ship;
+        [SerializeField] private ShipController ship;
 
         private void Awake()
         {

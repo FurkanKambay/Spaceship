@@ -70,8 +70,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         public void Cleanup()
         {
             Stop();
-            camera.transform.localPosition = Vector3.zero;
-            camera.transform.localRotation = Quaternion.identity;
+            camera.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
     }
 }
