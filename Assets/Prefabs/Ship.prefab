@@ -398,7 +398,7 @@ MonoBehaviour:
   cameraZoomConfig:
     slowZoom: 1
     fastZoom: 1.2
-    fastAngles: {x: 0, y: 0, z: 0}
+    fastAngles: {x: -20, y: 0, z: 0}
   cameraShakeAtMaxThrust: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
   rumbleDelay: 0
   rumbleAtMaxThrust:

@@ -41,8 +41,11 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
             float t = easeInExpo(ship.TotalThrust / ship.MaxTotalThrust);
             zoom = Mathf.Lerp(zoomConfig.slowZoom, zoomConfig.fastZoom, t);
-
             camera.orthographicSize = initialCameraSize * zoom;
+
+            var angles = Vector3.Lerp(Vector3.zero, zoomConfig.fastAngles, t);
+            camera.transform.eulerAngles = angles;
+
             return false; // sustain the effect indefinitely
 
             static float easeInExpo(float x) => x == 0 ? 0 : Mathf.Pow(2, (10 * x) - 10);
