@@ -293,9 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.LevelManager
   inputService: {fileID: 2138388033}
   shipPrefab: {fileID: 7807243787640348020, guid: 4415298f54224f044ad8ff0f6da4c35c, type: 3}
-  levelBounds:
-    Left: -15
-    Right: 15
   ship: {fileID: 729056539}
 --- !u!1 &519420028
 GameObject:

@@ -35,9 +35,6 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, ReadOnlyField] private float yaw;
         // TODO: turn speed, decay, damping
 
-        [Header("Debug - Level")]
-        [SerializeField] private Duo levelBounds;
-
         public Duo MoveInputs => moveInputs;
         public float DesiredThrust => desiredThrust;
         public float TotalThrust => totalThrust;
@@ -47,8 +44,6 @@ namespace FK.Spaceship.Gameplay
 
         public Vector3 ShipVelocity { get; private set; }
         public Quaternion ShipRotation { get; private set; }
-
-        internal void SetLevel(Duo bounds) => levelBounds = bounds;
 
         private void Awake()
         {
@@ -106,9 +101,6 @@ namespace FK.Spaceship.Gameplay
             // incorporate dashing
             FindDashVelocity(deltaTime);
             desiredPosition.x += dashVelocity * deltaTime;
-
-            // confine ship to level bounds
-            desiredPosition.x = Mathf.Clamp(desiredPosition.x, levelBounds.Left, levelBounds.Right);
 
             return desiredPosition;
         }

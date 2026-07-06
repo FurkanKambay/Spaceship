@@ -1,4 +1,3 @@
-using FK.Common;
 using FK.Spaceship.Input;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,7 +11,6 @@ namespace FK.Spaceship.Gameplay
 
         [Header("Config")]
         [SerializeField] private ShipController shipPrefab;
-        [SerializeField] private Duo levelBounds;
 
         [Header("State")]
         [SerializeField] private ShipController ship;
@@ -36,22 +34,6 @@ namespace FK.Spaceship.Gameplay
                 throw new UnassignedReferenceException(nameof(ship));
 
             inputService.Controls.Player.SetCallbacks(ship);
-
-            ship.SetLevel(levelBounds);
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(new Vector3(levelBounds.Left, -50, 0), Vector3.up * 100);
-            Gizmos.DrawRay(new Vector3(levelBounds.Right, -50, 0), Vector3.up * 100);
-        }
-
-        private void OnValidate()
-        {
-            levelBounds.Right = Mathf.Max(levelBounds.Right, levelBounds.Left + 5f);
-        }
-#endif
     }
 }

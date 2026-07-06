@@ -280,9 +280,6 @@ MonoBehaviour:
   dashVelocity: 0
   desiredYaw: 0
   yaw: 0
-  levelBounds:
-    Left: 0
-    Right: 0
 --- !u!114 &7421527994673617340
 MonoBehaviour:
   m_ObjectHideFlags: 0
