@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
+    /// <seealso cref="CameraFollowEffect"/>
     public interface ICameraFollowConfigProvider
     {
         ref readonly Vector3 CameraFollowOffset { get; }
@@ -12,6 +13,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         ref readonly float CameraFollowAngleSpeed { get; }
     }
 
+    /// <remarks>Modifies the camera pivot's Position, Rotation.</remarks>
+    /// <seealso cref="ICameraFollowConfigProvider"/>
     [Serializable]
     public struct CameraFollowEffect : ICameraEffect
     {

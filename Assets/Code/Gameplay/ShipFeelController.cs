@@ -7,6 +7,7 @@ using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay
 {
+    /// <seealso cref="ShipFeelAsset"/>
     public class ShipFeelController : MonoBehaviour
     {
         [Header("References")]

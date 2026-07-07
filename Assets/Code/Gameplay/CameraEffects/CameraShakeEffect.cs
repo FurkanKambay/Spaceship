@@ -5,7 +5,9 @@ using Random = UnityEngine.Random;
 
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
-    // https://github.com/IronWarrior/UnityCameraShake
+    /// <remarks>Modifies the camera's Local Position, Local Rotation.</remarks>
+    /// <seealso cref="CameraShakeProfileAsset"/>
+    // Source: https://github.com/IronWarrior/UnityCameraShake
     [Serializable]
     public struct CameraShakeEffect : ICameraEffect
     {
