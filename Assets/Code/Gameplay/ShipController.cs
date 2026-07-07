@@ -26,101 +26,95 @@ namespace FK.Spaceship.Gameplay
         [SerializeField, ReadOnlyField] private Duo dashInputs;
 
         [Header("Debug - Thrust")]
+        [SerializeField, ReadOnlyField] private Duo thrusterInput;
+        [SerializeField, ReadOnlyField] private float thrustInputTotal;
         [SerializeField, ReadOnlyField] private float desiredThrust;
-        [SerializeField, ReadOnlyField] private float totalThrust;
-        [SerializeField, ReadOnlyField] private float dashVelocity;
+        [SerializeField, ReadOnlyField] private float thrust;
+        [SerializeField, ReadOnlyField] private Vector3 dashVelocity;
 
         [Header("Debug - Turning")]
-        [SerializeField, ReadOnlyField] private float desiredYaw;
-        [SerializeField, ReadOnlyField] private float yaw;
-        // TODO: turn speed, decay, damping
+        [SerializeField, ReadOnlyField, Range(-1, 1)] private float turnInput;
+        [SerializeField, ReadOnlyField] private float desiredTorque;
+        [SerializeField, ReadOnlyField] private float torque;
+        [SerializeField, ReadOnlyField] private float roll;
 
-        public Duo MoveInputs => moveInputs;
-        public float DesiredThrust => desiredThrust;
-        public float TotalThrust => totalThrust;
+        [Header("Debug - Rot/Vel")]
+        [SerializeField, ReadOnlyField] private Vector3 shipForward;
+        [SerializeField, ReadOnlyField] private Quaternion shipRotation;
+        [SerializeField, ReadOnlyField] private Vector3 shipVelocity;
+        [SerializeField, ReadOnlyField] private Vector3 shipVelocityTotal;
+
+        public Duo ThrusterInput => thrusterInput;
+        public float Thrust => thrust;
         public float MaxTotalThrust => stats.MaxTotalThrust;
-        public float DesiredYaw => desiredYaw;
-        public float Yaw => yaw;
-
-        public Vector3 ShipVelocity { get; private set; }
-        public Quaternion ShipRotation { get; private set; }
 
         private void Awake()
         {
             Assert.IsNotNull(stats);
+            shipForward = transform.forward;
         }
 
         private void Update()
         {
             float deltaTime = Time.deltaTime;
 
-            ShipRotation = FindDirection(deltaTime);
-            ShipVelocity = FindVelocity(deltaTime);
-            transform.position = FindNextPosition(deltaTime);
+            // Gather inputs
+            thrusterInput = invertControls ? moveInputs.Swapped : moveInputs;
+            turnInput = thrusterInput.Left - thrusterInput.Right;
+            thrustInputTotal = moveInputs.Left + moveInputs.Right;
 
-            D.raw(new Shape.Arrow(transform.position, ShipVelocity), Color.green);
-            D.raw(new Shape.Arrow(transform.position, ShipRotation), Color.softYellow);
-        }
-
-#region Locomotion
-        private Quaternion FindDirection(float deltaTime)
-        {
-            // determine desired yaw
-            float turn = (moveInputs.Left - moveInputs.Right) * (invertControls ? -1 : 1);
-            desiredYaw = yaw + (turn * stats.TurnForce);
-
-            // move towards desired yaw
-            yaw = yaw.ExpDecay(desiredYaw, stats.TurnSpeed, deltaTime);
-            if (Mathf.Abs(desiredYaw - yaw) < 0.1)
-                yaw = desiredYaw;
-
-            return Quaternion.Euler(0, -yaw, 0);
-        }
-
-        private Vector3 FindVelocity(float deltaTime)
-        {
-            // determine desired thrust
-            float manualThrust = (moveInputs.Left + moveInputs.Right) * stats.ThrusterForce;
+            // Determine desired values
+            float manualThrust = thrustInputTotal * stats.ThrustSpeed;
+            desiredTorque = -turnInput * stats.TurnSpeed;
             desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
 
-            // move towards desired thrust
-            totalThrust = totalThrust.ExpDecay(desiredThrust, stats.Acceleration, deltaTime);
-            if (Mathf.Abs(desiredThrust - totalThrust) < 0.1)
-                totalThrust = desiredThrust;
+            // Move toward desired values
+            // torque = desiredTorque;
+            // totalThrust = desiredThrust;
+            torque = torque.ExpDecay(desiredTorque, stats.TurnDecay, deltaTime);
+            thrust = thrust.ExpDecay(desiredThrust, stats.ThrustDecay, deltaTime);
+            roll = torque.Remap(-stats.TurnSpeed, +stats.TurnSpeed).To(stats.RollLimits.x, stats.RollLimits.y);
 
-            // apply forward movement
-            Vector3 localVelocity = Vector3.forward * totalThrust;
-            return ShipRotation * localVelocity;
-        }
+            // Snap values when near target
+            if (Mathf.Abs(desiredTorque - torque) < 0.001)
+                torque = desiredTorque;
+            if (Mathf.Abs(desiredThrust - thrust) < 0.01)
+                thrust = desiredThrust;
 
-        private Vector3 FindNextPosition(float deltaTime)
-        {
-            // determine final position for this frame
-            Vector3 desiredPosition = transform.position + (ShipVelocity * deltaTime);
+            // Find new orientation
+            shipForward = Quaternion.AngleAxis(-torque * deltaTime, Vector3.up) * shipForward;
+            shipRotation = Quaternion.LookRotation(shipForward);
+            // shipEulerAngles = shipRotation;
 
-            // incorporate dashing
+            // Find new position
             FindDashVelocity(deltaTime);
-            desiredPosition.x += dashVelocity * deltaTime;
+            shipVelocity = shipForward * thrust;
+            shipVelocityTotal = shipVelocity + (shipRotation * dashVelocity);
+            Vector3 finalPosition = transform.position + (shipVelocityTotal * deltaTime);
 
-            return desiredPosition;
+            // Move and rotate the ship
+            var finalRotation = Quaternion.Euler(shipRotation.eulerAngles.With(z: roll));
+            transform.SetLocalPositionAndRotation(finalPosition, finalRotation);
+
+            D.raw(new Shape.Arrow(transform.position, shipVelocity), Color.green);
+            D.raw(new Shape.Arrow(transform.position, shipRotation), Color.softYellow);
         }
 
         private void FindDashVelocity(float deltaTime)
         {
-            if (Mathf.Abs(dashVelocity) > 0)
+            if (Mathf.Abs(dashVelocity.sqrMagnitude) > 0)
             {
-                dashVelocity = dashVelocity.ExpDecay(0, stats.DashDecay, deltaTime);
-                if (Mathf.Abs(dashVelocity) < 0.001)
-                    dashVelocity = 0;
+                dashVelocity = dashVelocity.ExpDecay(Vector3.zero, stats.DashDecay, deltaTime);
+                if (Mathf.Abs(dashVelocity.sqrMagnitude) < 0.01)
+                    dashVelocity = Vector3.zero;
             }
             else
             {
                 float dashDirection = dashInputs.Right - dashInputs.Left;
                 if (dashDirection != 0)
-                    dashVelocity = dashDirection * stats.DashForce;
+                    dashVelocity = Vector3.right * (dashDirection * stats.DashForce);
             }
         }
-#endregion
 
         void IPlayerActions.OnMoveLeft(InputContext context) => moveInputs.Left = context.ReadValue<float>();
         void IPlayerActions.OnMoveRight(InputContext context) => moveInputs.Right = context.ReadValue<float>();

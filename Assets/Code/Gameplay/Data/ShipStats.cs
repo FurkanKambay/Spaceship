@@ -1,4 +1,5 @@
 using UnityEngine;
+using Vertx.Attributes;
 
 namespace FK.Spaceship.Gameplay.Data
 {
@@ -6,26 +7,28 @@ namespace FK.Spaceship.Gameplay.Data
     public class ShipStats : ScriptableObject
     {
         [Header("Thrusters")]
-        [SerializeField, Min(0)] private float baseThrust = 1f;
-        [SerializeField, Min(0)] private float thrusterForce = 20f;
-        [SerializeField, Min(0)] private float acceleration = 5f;
+        [SerializeField, Min(0)] private float baseThrust;
+        [SerializeField, Min(0)] private float thrustSpeed = 20f;
+        [SerializeField, Min(0)] private float thrustDecay = 5f;
         [SerializeField, Min(0)] private float maxTotalThrust = 20f;
 
         [Header("Turning")]
-        [SerializeField, Min(0)] private float turnForce = 5f;
-        [SerializeField, Min(0)] private float turnSpeed = 20f;
+        [SerializeField, Range(0, 720)] private float turnSpeed = 360f;
+        [SerializeField, Range(0, 720)] private float turnDecay = 10f;
+        [SerializeField, MinMax(-180, 180)] private Vector2 rollLimits = new(-45, 45);
 
         [Header("Dash")]
         [SerializeField, Min(0)] private float dashForce = 20f;
         [SerializeField, Min(0)] private float dashDecay = 10f;
 
         public float BaseThrust => baseThrust;
-        public float ThrusterForce => thrusterForce;
-        public float Acceleration => acceleration;
+        public float ThrustSpeed => thrustSpeed;
+        public float ThrustDecay => thrustDecay;
         public float MaxTotalThrust => maxTotalThrust;
 
-        public float TurnForce => turnForce;
         public float TurnSpeed => turnSpeed;
+        public float TurnDecay => turnDecay;
+        public Vector2 RollLimits => rollLimits;
 
         public float DashForce => dashForce;
         public float DashDecay => dashDecay;

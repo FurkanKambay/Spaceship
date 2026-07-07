@@ -10,6 +10,8 @@ namespace FK.Spaceship.Gameplay.Data
         [Header("Config - Follow")]
         [SerializeField] private Vector3 cameraFollowOffset;
         [SerializeField] private Vector3 cameraFollowDecay;
+        [SerializeField] private Vector3 cameraFollowAngleOffset;
+        [SerializeField] private float cameraFollowAngleSpeed;
 
         [Header("Config - Zoom")]
         [SerializeField] private CameraZoomEffect.ZoomConfig cameraZoomConfig;
@@ -24,6 +26,8 @@ namespace FK.Spaceship.Gameplay.Data
 
         public ref readonly Vector3 CameraFollowOffset => ref cameraFollowOffset;
         public ref readonly Vector3 CameraFollowDecay => ref cameraFollowDecay;
+        public ref readonly Vector3 CameraFollowAngleOffset => ref cameraFollowAngleOffset;
+        public ref readonly float CameraFollowAngleSpeed => ref cameraFollowAngleSpeed;
 
         public ref readonly CameraZoomEffect.ZoomConfig CameraZoomConfig => ref cameraZoomConfig;
 

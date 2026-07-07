@@ -8,6 +8,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
     {
         ref readonly Vector3 CameraFollowOffset { get; }
         ref readonly Vector3 CameraFollowDecay { get; }
+        ref readonly Vector3 CameraFollowAngleOffset { get; }
+        ref readonly float CameraFollowAngleSpeed { get; }
     }
 
     [Serializable]
@@ -26,7 +28,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             this.target = target ? target : throw new ArgumentNullException(nameof(target));
             this.config = configProvider ?? throw new ArgumentNullException(nameof(configProvider));
 
-            this.destination = target.position + config.CameraFollowOffset;
+            this.destination = target.TransformPoint(config.CameraFollowOffset);
         }
 
         public bool Tick()
@@ -34,14 +36,23 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             if (!target)
                 return true;
 
-            destination = target.position + config.CameraFollowOffset;
-            Vector3 current = cameraPivot.transform.position;
+            float deltaTime = Time.deltaTime;
 
-            cameraPivot.transform.position = new Vector3(
-                x: current.x.ExpDecay(destination.x, config.CameraFollowDecay.x, Time.deltaTime),
-                y: current.y.ExpDecay(destination.y, config.CameraFollowDecay.y, Time.deltaTime),
-                z: current.z.ExpDecay(destination.z, config.CameraFollowDecay.z, Time.deltaTime)
-            );
+            // Position
+            Vector3 pivotPosition = cameraPivot.position;
+            destination = target.TransformPoint(config.CameraFollowOffset);
+            Vector3 newPosition = pivotPosition.ExpDecay(destination, config.CameraFollowDecay, deltaTime);
+
+            // Rotation
+            Quaternion pivotRotation = cameraPivot.rotation;
+            Vector3 lookVector = target.position - newPosition;
+            Quaternion lookRotation = Quaternion.LookRotation(lookVector);
+            Vector3 targetAngles = lookRotation.eulerAngles + config.CameraFollowAngleOffset;
+            Quaternion targetRotation = Quaternion.Euler(targetAngles);
+            Quaternion newRotation = Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraFollowAngleSpeed);
+
+            // cameraPivot.position = newPosition;
+            cameraPivot.SetPositionAndRotation(newPosition, newRotation);
 
             // sustain effect indefinitely
             return false;

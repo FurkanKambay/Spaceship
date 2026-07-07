@@ -59,7 +59,7 @@ namespace FK.Spaceship.Gameplay
             if (!ship)
                 return;
 
-            if (ship.TotalThrust < ship.MaxTotalThrust)
+            if (ship.Thrust < ship.MaxTotalThrust)
             {
                 if (fullThrustTimer > 0)
                     DeactivateMaxThrustEffects();

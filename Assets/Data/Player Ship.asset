@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Player Ship
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipStats
   baseThrust: 0
-  thrusterForce: 10
-  acceleration: 6
-  maxTotalThrust: 20
-  turnForce: 35
-  turnSpeed: 8
-  dashForce: 100
-  dashDecay: 20
+  thrustSpeed: 25
+  thrustDecay: 6
+  maxTotalThrust: 50
+  turnSpeed: 360
+  turnDecay: 15
+  rollLimits: {x: -20, y: 20}
+  dashForce: 50
+  dashDecay: 10

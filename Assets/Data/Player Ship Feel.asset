@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipFeelAsset
   cameraFollowOffset: {x: 0, y: 2, z: -5}
   cameraFollowDecay: {x: 20, y: 20, z: 20}
+  cameraFollowAngleOffset: {x: -5, y: 0, z: 0}
+  cameraFollowAngleSpeed: 50
   cameraZoomConfig:
-    slowZoom: 1
-    fastZoom: 1.2
-    fastAngles: {x: 0, y: 0, z: 0}
+    slowFOV: 60
+    fastFOV: 70
+    fastAngles: {x: -5, y: 0, z: 0}
   cameraShakeAtMaxThrust: {fileID: 11400000, guid: 177d63c054baa4d4fa22034c1ec6ca8e, type: 2}
   rumbleDelay: 0
   rumbleAtMaxThrust:
-    lowFrequency: 1
-    highFrequency: 0.5
+    lowFrequency: 0.5
+    highFrequency: 0.2
   collisionShakeProfile: {fileID: 11400000, guid: 660d798fa1f34db458436deae5179e1a, type: 2}
