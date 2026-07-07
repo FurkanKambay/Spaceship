@@ -12,6 +12,8 @@ namespace FK.Common
         public float Left;
         public float Right;
 
+        public Duo Swapped => new Duo(Right, Left);
+
         public Duo(float left, float right)
         {
             Left = left;
