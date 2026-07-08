@@ -67,9 +67,10 @@ namespace FK.Spaceship.Gameplay
             torque = torque.ExpDecay(desiredTorque, stats.TurnDecay, deltaTime);
             torque = torque.Snap(desiredTorque, 1f);
 
-            totalThrust += stats.ThrustAcceleration * deltaTime;
-            totalThrust = Mathf.Min(totalThrust, desiredThrusts.Sum);
-            totalThrust = Mathf.Min(totalThrust, stats.MaxTotalThrust);
+            float targetThrust = Mathf.Min(desiredThrusts.Sum, stats.MaxTotalThrust);
+            bool isDecelerating = Mathf.Sign(targetThrust - totalThrust) < 0;
+            float velocityChange = isDecelerating ? stats.ThrustDeceleration : stats.ThrustAcceleration;
+            totalThrust = totalThrust.MoveTowards(targetThrust, velocityChange * deltaTime);
 
             // Find new orientation
             shipForward = Quaternion.AngleAxis(-torque * deltaTime, Vector3.up) * shipForward;
