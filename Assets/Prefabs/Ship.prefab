@@ -290,7 +290,6 @@ MonoBehaviour:
   roll: 0
   shipForward: {x: 0, y: 0, z: 0}
   shipVelocity: {x: 0, y: 0, z: 0}
-  shipVelocityTotal: {x: 0, y: 0, z: 0}
 --- !u!114 &7421527994673617340
 MonoBehaviour:
   m_ObjectHideFlags: 0

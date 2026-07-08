@@ -60,7 +60,7 @@ namespace FK.Spaceship.Gameplay
             turnDirection = thrustLevers.Left - thrustLevers.Right;
 
             // Determine desired values
-            desiredThrusts = thrustLevers * stats.ThrustSpeed;
+            desiredThrusts = thrustLevers * stats.EnginePower;
             desiredTorque = -turnDirection * stats.TurnSpeed;
 
             // Move toward desired values

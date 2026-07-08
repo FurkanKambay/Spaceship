@@ -7,7 +7,7 @@ namespace FK.Spaceship.Gameplay.Data
     public class ShipStats : ScriptableObject
     {
         [Header("Thrusters")]
-        [SerializeField, Min(0)] private float thrustSpeed = 20f;
+        [SerializeField, Min(0)] private float enginePower = 20f;
         [SerializeField, Min(0)] private float thrustAcceleration = 20f;
         [SerializeField, Min(0)] private float thrustDeceleration = 80f;
         [SerializeField, Min(0)] private float maxTotalThrust = 20f;
@@ -21,7 +21,7 @@ namespace FK.Spaceship.Gameplay.Data
         [SerializeField, Min(0)] private float dashForce = 20f;
         [SerializeField, Min(0)] private float dashDecay = 10f;
 
-        public float ThrustSpeed => thrustSpeed;
+        public float EnginePower => enginePower;
         public float ThrustAcceleration => thrustAcceleration;
         public float ThrustDeceleration => thrustDeceleration;
         public float MaxTotalThrust => maxTotalThrust;
