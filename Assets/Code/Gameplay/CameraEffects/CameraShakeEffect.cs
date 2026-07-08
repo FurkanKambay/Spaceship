@@ -14,6 +14,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         [SerializeField] private CameraShakeProfileAsset profile;
         [SerializeField, Range(0, 1)] private float trauma;
 
+        public bool IsEnabled { get; set; }
+
         private Camera camera;
 
         private float seed;
@@ -24,13 +26,15 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             this.profile = profile ? profile : throw new ArgumentNullException(nameof(profile));
             this.seed = Random.value;
             this.trauma = 0;
+            this.IsEnabled = true;
         }
 
-        public void AddTrauma(float value) => trauma = Mathf.Clamp01(trauma + value);
+        public void AddTrauma(float value) =>
+            trauma = Mathf.Clamp01(trauma + value);
 
         public bool Tick()
         {
-            if (!camera)
+            if (!IsEnabled || !camera)
                 return true;
 
             float shake = Mathf.Pow(trauma, profile.TraumaExponent);
@@ -64,14 +68,14 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             return trauma == 0;
         }
 
-        public void Stop()
+        public void Reset()
         {
             trauma = 0;
         }
 
-        public void Cleanup()
+        public void ForceStop()
         {
-            Stop();
+            Reset();
             camera.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
     }

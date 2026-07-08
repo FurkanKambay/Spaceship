@@ -24,6 +24,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
         [SerializeField, Range(10, 100)] private float fov;
 
+        public bool IsEnabled { get; set; }
+
         private Camera camera;
         private ShipController ship;
         private ICameraZoomConfigProvider config;
@@ -41,11 +43,12 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
             this.initialCameraFOV = camera.fieldOfView;
             this.fov = initialCameraFOV;
+            this.IsEnabled = true;
         }
 
         public bool Tick()
         {
-            if (!camera)
+            if (!IsEnabled || !camera)
                 return true;
 
             ref readonly ZoomConfig zoomConfig = ref config.CameraZoomConfig;
@@ -62,14 +65,14 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             static float easeInExpo(float x) => x == 0 ? 0 : Mathf.Pow(2, (10 * x) - 10);
         }
 
-        public void Stop()
+        public void Reset()
         {
             fov = initialCameraFOV;
         }
 
-        public void Cleanup()
+        public void ForceStop()
         {
-            Stop();
+            Reset();
             camera.fieldOfView = initialCameraFOV;
         }
     }

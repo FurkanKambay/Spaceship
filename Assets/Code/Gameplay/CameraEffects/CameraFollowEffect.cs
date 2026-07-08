@@ -23,6 +23,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         private Transform cameraPivot;
         private ICameraFollowConfigProvider config;
 
+        public bool IsEnabled { get; set; }
+
         private Vector3 destination;
 
         public CameraFollowEffect(Transform cameraPivot, Transform target, ICameraFollowConfigProvider configProvider)
@@ -32,11 +34,12 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             this.config = configProvider ?? throw new ArgumentNullException(nameof(configProvider));
 
             this.destination = target.TransformPoint(config.CameraFollowOffset);
+            this.IsEnabled = true;
         }
 
         public bool Tick()
         {
-            if (!target)
+            if (!IsEnabled || !target)
                 return true;
 
             float deltaTime = Time.deltaTime;
@@ -52,7 +55,8 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             Quaternion lookRotation = Quaternion.LookRotation(lookVector);
             Vector3 targetAngles = lookRotation.eulerAngles + config.CameraFollowAngleOffset;
             Quaternion targetRotation = Quaternion.Euler(targetAngles);
-            Quaternion newRotation = Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraRotateSpeed);
+            Quaternion newRotation =
+                Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraRotateSpeed);
 
             cameraPivot.SetPositionAndRotation(newPosition, newRotation);
 
@@ -60,13 +64,13 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             return false;
         }
 
-        public void Stop()
+        public void Reset()
         {
         }
 
-        public void Cleanup()
+        public void ForceStop()
         {
-            Stop();
+            Reset();
         }
     }
 }

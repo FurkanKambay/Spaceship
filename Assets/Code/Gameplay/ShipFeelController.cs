@@ -90,7 +90,7 @@ namespace FK.Spaceship.Gameplay
 
         private void DeactivateMaxThrustEffects()
         {
-            camShake.Stop();
+            camShake.Reset();
             StopRumble();
         }
 #endregion
