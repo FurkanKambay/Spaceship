@@ -10,7 +10,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
         ref readonly Vector3 CameraFollowOffset { get; }
         ref readonly Vector3 CameraFollowDecay { get; }
         ref readonly Vector3 CameraFollowAngleOffset { get; }
-        ref readonly float CameraFollowAngleSpeed { get; }
+        ref readonly float CameraRotateSpeed { get; }
     }
 
     /// <remarks>Modifies the camera pivot's Position, Rotation.</remarks>
@@ -52,7 +52,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             Quaternion lookRotation = Quaternion.LookRotation(lookVector);
             Vector3 targetAngles = lookRotation.eulerAngles + config.CameraFollowAngleOffset;
             Quaternion targetRotation = Quaternion.Euler(targetAngles);
-            Quaternion newRotation = Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraFollowAngleSpeed);
+            Quaternion newRotation = Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraRotateSpeed);
 
             // cameraPivot.position = newPosition;
             cameraPivot.SetPositionAndRotation(newPosition, newRotation);

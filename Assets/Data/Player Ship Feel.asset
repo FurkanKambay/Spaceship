@@ -15,7 +15,7 @@ MonoBehaviour:
   cameraFollowOffset: {x: 0, y: 2, z: -5}
   cameraFollowDecay: {x: 20, y: 20, z: 20}
   cameraFollowAngleOffset: {x: -5, y: 0, z: 0}
-  cameraFollowAngleSpeed: 50
+  cameraRotateSpeed: 50
   cameraZoomConfig:
     slowFOV: 60
     fastFOV: 70
