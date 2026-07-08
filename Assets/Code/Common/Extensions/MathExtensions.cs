@@ -6,6 +6,12 @@ namespace FK.Common.Extensions
     [PublicAPI]
     public static class MathExtensions
     {
+        public static float Snap(this float value, float target, float threshold) =>
+            Mathf.Abs(target - value) < threshold ? target : value;
+
+        public static float MoveTowards(this float value, float target, float maxDelta) =>
+            Mathf.MoveTowards(value, target, maxDelta);
+
         /// Exponential decay function from Freya Holmér.
         public static float ExpDecay(this float from, float to, float decay, float deltaTime) =>
             to + ((from - to) * Mathf.Exp(-decay * deltaTime));
