@@ -16,12 +16,11 @@ namespace FK.Spaceship.Gameplay.Visual
 
         private void Update()
         {
-            Duo thruster = ship.ThrusterInput;
+            Duo thruster = ship.ThrustLevers;
             leftThruster.color = new Color(1, 1, 1, thruster.Left);
             rightThruster.color = new Color(1, 1, 1, thruster.Right);
 
-            float thrustRatio = ship.Thrust / ship.MaxTotalThrust;
-            int spriteIndex = (int)Mathf.Lerp(0, flameSprites.Length - 1, thrustRatio);
+            int spriteIndex = (int)Mathf.Lerp(0, flameSprites.Length - 1, ship.ThrustRatio);
             SetBothSprites(spriteIndex);
         }
 

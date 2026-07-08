@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce335fbd4bb9244fbf9ee35b6c8aa1c, type: 3}
   m_Name: Player Ship
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipStats
-  baseThrust: 0
   thrustSpeed: 25
   thrustAcceleration: 18
   maxTotalThrust: 50

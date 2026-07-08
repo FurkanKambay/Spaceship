@@ -276,19 +276,19 @@ MonoBehaviour:
   dashInputs:
     Left: 0
     Right: 0
-  thrusterInput:
+  thrustLevers:
     Left: 0
     Right: 0
-  thrustInputTotal: 0
-  desiredThrust: 0
-  thrust: 0
+  desiredThrusts:
+    Left: 0
+    Right: 0
+  totalThrust: 0
   dashVelocity: {x: 0, y: 0, z: 0}
-  turnInput: 0
+  turnDirection: 0
   desiredTorque: 0
   torque: 0
   roll: 0
   shipForward: {x: 0, y: 0, z: 0}
-  shipRotation: {x: 0, y: 0, z: 0, w: 0}
   shipVelocity: {x: 0, y: 0, z: 0}
   shipVelocityTotal: {x: 0, y: 0, z: 0}
 --- !u!114 &7421527994673617340

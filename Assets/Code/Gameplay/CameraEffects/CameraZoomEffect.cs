@@ -50,7 +50,7 @@ namespace FK.Spaceship.Gameplay.CameraEffects
 
             ref readonly ZoomConfig zoomConfig = ref config.CameraZoomConfig;
 
-            float t = easeInExpo(ship.Thrust / ship.MaxTotalThrust);
+            float t = easeInExpo(ship.ThrustRatio);
             fov = Mathf.Lerp(zoomConfig.slowFOV, zoomConfig.fastFOV, t);
             camera.fieldOfView = fov;
 
