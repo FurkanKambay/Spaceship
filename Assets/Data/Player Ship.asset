@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: FK.Spaceship::FK.Spaceship.Gameplay.Data.ShipStats
   baseThrust: 0
   thrustSpeed: 25
-  thrustDecay: 6
+  thrustAcceleration: 18
   maxTotalThrust: 50
   turnSpeed: 360
   turnDecay: 15

@@ -69,10 +69,8 @@ namespace FK.Spaceship.Gameplay
             desiredThrust = Mathf.Min(stats.MaxTotalThrust, stats.BaseThrust + manualThrust);
 
             // Move toward desired values
-            // torque = desiredTorque;
-            // totalThrust = desiredThrust;
             torque = torque.ExpDecay(desiredTorque, stats.TurnDecay, deltaTime);
-            thrust = thrust.ExpDecay(desiredThrust, stats.ThrustDecay, deltaTime);
+            thrust = Mathf.Min(thrust + (stats.ThrustAcceleration * deltaTime), desiredThrust);
             roll = torque.Remap(-stats.TurnSpeed, +stats.TurnSpeed).To(stats.RollLimits.x, stats.RollLimits.y);
 
             // Snap values when near target
@@ -84,7 +82,6 @@ namespace FK.Spaceship.Gameplay
             // Find new orientation
             shipForward = Quaternion.AngleAxis(-torque * deltaTime, Vector3.up) * shipForward;
             shipRotation = Quaternion.LookRotation(shipForward);
-            // shipEulerAngles = shipRotation;
 
             // Find new position
             FindDashVelocity(deltaTime);
