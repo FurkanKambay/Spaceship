@@ -54,7 +54,6 @@ namespace FK.Spaceship.Gameplay.CameraEffects
             Quaternion targetRotation = Quaternion.Euler(targetAngles);
             Quaternion newRotation = Quaternion.RotateTowards(in pivotRotation, in targetRotation, config.CameraRotateSpeed);
 
-            // cameraPivot.position = newPosition;
             cameraPivot.SetPositionAndRotation(newPosition, newRotation);
 
             // sustain effect indefinitely
