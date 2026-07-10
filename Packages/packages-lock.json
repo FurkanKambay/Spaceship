@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.needle.console": {
+      "version": "2.7.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.animation": {
       "version": "15.1.0",
       "depth": 0,
@@ -350,6 +357,13 @@
       },
       "url": "https://package.openupm.com"
     },
+    "org.nuget.microsoft.unity.analyzers": {
+      "version": "1.26.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unitynuget-registry.openupm.com"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
@@ -544,16 +558,6 @@
         "com.unity.modules.uielements": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
-      }
-    },
-    "com.unity.modules.video": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
       }
     }
   }
