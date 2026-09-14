@@ -11,7 +11,7 @@
         "Assets/Plugins/": true
     },
     "files.readonlyInclude": {
-        "**/*.meta": true,
+        "**/*.meta": false,
         "Packages/packages-lock.json": true,
         "Assets/Plugins/": true,
         "Assets/TextMesh Pro/": true,
