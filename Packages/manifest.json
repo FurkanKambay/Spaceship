@@ -23,6 +23,7 @@
     "com.unity.visualeffectgraph": "17.6.0",
     "com.vertx.attributes": "1.6.0",
     "com.vertx.debugging": "3.0.3",
+    "org.nuget.microsoft.unity.analyzers": "1.28.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",
@@ -53,6 +54,13 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.vertx"
+      ]
+    },
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.openupm.com",
+      "scopes": [
+        "org.nuget"
       ]
     }
   ]
