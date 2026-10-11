@@ -12,6 +12,9 @@ namespace FK.Spaceship.Common
         public float Left;
         public float Right;
 
+        public float Sum => Left + Right;
+        public Duo Swapped => new Duo(Right, Left);
+
         public Duo(float left, float right)
         {
             Left = left;

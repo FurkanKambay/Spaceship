@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.CameraEffects
 {
+    /// <seealso cref="CameraZoomEffect"/>
     public interface ICameraZoomConfigProvider
     {
         ref readonly CameraZoomEffect.ZoomConfig CameraZoomConfig { get; }
     }
 
+    /// <remarks>Modifies the camera's Local Rotation, FOV.</remarks>
+    /// <seealso cref="ICameraZoomConfigProvider"/>
     [Serializable]
     public struct CameraZoomEffect : ICameraEffect
     {

@@ -1,7 +1,9 @@
+using FK.Spaceship.Gameplay.CameraEffects;
 using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.Data
 {
+    /// <seealso cref="CameraShakeEffect"/>
     [CreateAssetMenu(menuName = "Spaceship/Camera Shake Profile")]
     public class CameraShakeProfileAsset : ScriptableObject
     {

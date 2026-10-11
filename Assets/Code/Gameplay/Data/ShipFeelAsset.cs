@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.Data
 {
+    /// <seealso cref="ShipFeelController"/>
     [CreateAssetMenu(menuName = "Spaceship/Ship Feel")]
     public class ShipFeelAsset : ScriptableObject, ICameraZoomConfigProvider, ICameraFollowConfigProvider
     {
