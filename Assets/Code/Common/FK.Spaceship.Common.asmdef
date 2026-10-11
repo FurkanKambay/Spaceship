@@ -1,6 +1,6 @@
 {
-    "name": "FK.Common",
-    "rootNamespace": "FK",
+    "name": "FK.Spaceship.Common",
+    "rootNamespace": "FK.Spaceship",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

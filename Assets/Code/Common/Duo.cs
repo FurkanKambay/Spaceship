@@ -4,7 +4,7 @@ using UnityEngine;
 
 // ReSharper disable InconsistentNaming
 
-namespace FK.Common
+namespace FK.Spaceship.Common
 {
     [Serializable]
     public struct Duo : IEquatable<Duo>

@@ -2,6 +2,7 @@
     "name": "FK.Spaceship",
     "rootNamespace": "FK.Spaceship",
     "references": [
+        "GUID:5a043933b0cd4df449f71f6a45bb2934",
         "GUID:ade22e0cbd0966a43aa01ef49b183800",
         "GUID:d91d5ec20cf4bd541bb898f67497ca6d",
         "GUID:469445bf6a23e0f489cf3db8cd1a420d",

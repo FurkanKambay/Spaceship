@@ -1,4 +1,4 @@
-using FK.Common;
+using FK.Spaceship.Common;
 using FK.Spaceship.Input;
 using UnityEngine;
 using UnityEngine.Assertions;

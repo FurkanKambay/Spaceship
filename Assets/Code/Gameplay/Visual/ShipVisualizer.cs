@@ -1,5 +1,5 @@
 using System;
-using FK.Common;
+using FK.Spaceship.Common;
 using UnityEngine;
 
 namespace FK.Spaceship.Gameplay.Visual

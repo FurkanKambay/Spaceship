@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.furkankambay.common": {
+      "version": "https://github.com/FurkanKambay/unity-common-lib.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4e83934dfb8510a55f3766bfe18b79b192ec0cc8"
+    },
     "com.unity.2d.animation": {
       "version": "16.0.1",
       "depth": 0,
